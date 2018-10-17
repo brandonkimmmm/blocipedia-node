@@ -25,7 +25,6 @@
     "dialect": "postgres",
     "logging": false,
     "operatorsAliases": false,
-    "user_env_variable": "DATABASE_URL",
-    "db": "process.env.DATABASE_URL"
+    "user_env_variable": "DATABASE_URL"
   }
 }
