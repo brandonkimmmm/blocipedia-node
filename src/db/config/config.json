@@ -1,0 +1,31 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": null,
+    "database": "blocipedia",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false,
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "postgres",
+    "password": null,
+    "database": "blocipedia",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false,
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false,
+    "operatorsAliases": false,
+    "user_env_variable": "postgres://yenptmgjuinnkk:ada8c502f17a345c2ed2f5eccf958c4-227-244-12.compute-1.amazonaws.com:5432/d136gktqc73gpf",
+    "db": "process.env.postgres://yenptmgjuinnkk:ada8c502f17a345c2ed2f5eccf958c4-227-244-12.compute-1.amazonaws.com:5432/d136gktqc73gpf"
+  }
+}
