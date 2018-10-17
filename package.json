@@ -1,0 +1,19 @@
+{
+  "name": "blocipedia-node",
+  "version": "1.0.0",
+  "description": "An wikipedia-like application for users to create, collaborate, and share wikis",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "export NODE_ENV=test && jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brandonkimmmm/blocipedia-node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brandonkimmmm/blocipedia-node/issues"
+  },
+  "homepage": "https://github.com/brandonkimmmm/blocipedia-node#readme"
+}
