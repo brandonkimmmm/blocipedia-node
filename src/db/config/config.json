@@ -26,6 +26,6 @@
     "logging": false,
     "operatorsAliases": false,
     "user_env_variable": "postgres://yenptmgjuinnkk:ada8c502f17a345c2ed2f5eccf958c4-227-244-12.compute-1.amazonaws.com:5432/d136gktqc73gpf",
-    "db": "process.env.postgres://yenptmgjuinnkk:ada8c502f17a345c2ed2f5eccf958c4-227-244-12.compute-1.amazonaws.com:5432/d136gktqc73gpf"
+    "db": "process.env.DATABASE_URL"
   }
 }
