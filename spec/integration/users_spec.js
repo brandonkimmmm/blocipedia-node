@@ -103,6 +103,16 @@ describe("routes : users", () => {
                 }
             );
         });
-    }); //End POST user
+    }); //End POST signup
+
+    describe('GET /users/signin', () => {
+        it('should render a view with a sign in form', (done) => {
+            request.get(`${base}signin`, (err, res, body) => {
+                expect(err).toBeNull();
+                expect(body).toContain('Sign in');
+                done();
+            });
+        });
+    }); //END GET signin
 
 });
