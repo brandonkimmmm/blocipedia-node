@@ -11,7 +11,7 @@ for(let i = 1; i <= 15; i++){
     private: false,
     createdAt: new Date(),
     updatedAt: new Date(),
-    userId: 1
+    userId: i + 1
   });
 }
 
