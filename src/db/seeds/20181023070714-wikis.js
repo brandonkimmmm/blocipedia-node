@@ -8,9 +8,10 @@ for(let i = 1; i <= 15; i++){
   wikis.push({
     title: faker.hacker.noun(),
     body: faker.hacker.phrase(),
+    private: false,
     createdAt: new Date(),
     updatedAt: new Date(),
-    userId: i
+    userId: 1
   });
 }
 
@@ -37,6 +38,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('Person', null, {});
     */
-    return queryInterface.bulkInsert('Wikis', null, {});
+    return queryInterface.bulkDelete('Wikis', null, {});
   }
 };
