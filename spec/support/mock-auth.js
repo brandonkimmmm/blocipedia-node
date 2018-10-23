@@ -1,19 +1,20 @@
 module.exports = {
     fakeIt(app){
-        let username, id, email, private
+        let username, id, email, private, role
 
         function middleware(req, res, next){
             username = req.body.username || username;
             email = req.body.email || email;
             id = req.body.userId || id;
-            private = req.body.private || private;
+            role = req.body.role || role;
 
             if(id && id != 0){
+                // console.log('this is in mock-auth', req.body);
                 req.user = {
                     'id': id,
                     'username': username,
                     'email': email,
-                    'private': private
+                    'role': role
                 };
             } else if(id == 0) {
                 delete req.user;

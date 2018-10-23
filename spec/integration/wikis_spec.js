@@ -14,7 +14,8 @@ describe('routes : topics', () => {
             User.create({
                 username: 'example',
                 email: 'user@example.com',
-                password: 'password'
+                password: 'password',
+                role: 0
             })
             .then((user) => {
                 this.user = user;
@@ -35,127 +36,213 @@ describe('routes : topics', () => {
         });
     });
 
-    describe('GET /wikis', () => {
-        it('should return a status code 200 and all wikis', (done) => {
-            request.get(base, (err, res, body) => {
-                expect(res.statusCode).toBe(200);
-                expect(err).toBeNull();
-                expect(body).toContain('Wikis');
-                expect(body).toContain('Wookies');
-                done();
-            });
-        });
-    }); // GET wikis end
-
-    describe('GET /wikis/new', () => {
-        it('should render a new wiki form', (done) => {
-            request.get(`${base}new`, (err, res, body) => {
-                expect(err).toBeNull();
-                expect(body).toContain('New Wiki');
-                done();
-            });
-        });
-    }); //END GET wikis/new
-
-    describe('POST /wikis/create', () => {
+    //START STANDARD USER CONTEXT
+    describe('standard user performing CRUD actions for Wiki', () => {
         beforeEach((done) => {
             request.get({
-                url: 'http://localhost:3000/auth/fake'
+                url: 'http://localhost:3000/auth/fake',
+                form: {
+                    role: this.user.role,
+                    id: this.user.id,
+                    email: this.user.email,
+                    username: this.user.username
+                }
             },
                 (err, res, body) => {
                     done();
                 }
-            );
+            )
         });
-        it('should create a new wiki and redirect', (done) => {
-            const options = {
-                url: `${base}create`,
-                form: {
-                    title: 'Lakers',
-                    body: 'Lakers are the best team ever',
-                    userId: this.user.id
-                }
-            };
-            request.post(options,
-                (err, res, body) => {
-                    Wiki.findOne({where: {title: 'Lakers'}})
-                    .then((wiki) => {
-                        expect(res.statusCode).toBe(303);
-                        expect(wiki.title).toBe('Lakers');
-                        expect(wiki.body).toBe('Lakers are the best team ever');
-                        done();
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                        done();
-                    });
-                }
-            );
-        });
-    }); //END POST wikis/create
 
-    describe('GET /wikis/:id', () => {
-        it('should render a view with the selected wiki', (done) => {
-            request.get(`${base}${this.wiki.id}`, (err, res, body) => {
-                expect(err).toBeNull();
-                expect(body).toContain('Wookies');
-                done();
+        describe('GET /wikis', () => {
+            it('should return a status code 200 and all wikis', (done) => {
+                request.get(base, (err, res, body) => {
+                    expect(res.statusCode).toBe(200);
+                    expect(err).toBeNull();
+                    expect(body).toContain('Wikis');
+                    expect(body).toContain('Wookies');
+                    done();
+                });
             });
-        });
-    }); //END GET wikis/:id
+        }); // GET wikis end
 
-    describe('POST /wikis/:id/destroy', () => {
-        it('should delete the wiki with the associated ID', (done) => {
-            Wiki.all()
-            .then((wikis) => {
-                const wikiCountBeforeDelete = wikis.length;
-                expect(wikiCountBeforeDelete).toBe(1);
-                request.post(`${base}${this.wiki.id}/destroy`, (err, res, body) => {
-                    Wiki.all()
-                    .then((wikis) => {
-                        expect(err).toBeNull();
-                        expect(wikis.length).toBe(wikiCountBeforeDelete - 1);
-                        done();
+        describe('POST /wikis/create', () => {
+            it('should create a new wiki and redirect', (done) => {
+                const options = {
+                    url: `${base}create`,
+                    form: {
+                        title: 'Lakers',
+                        body: 'Lakers are the best team ever',
+                        userId: this.user.id
+                    }
+                };
+                request.post(options,
+                    (err, res, body) => {
+                        Wiki.findOne({where: {title: 'Lakers'}})
+                        .then((wiki) => {
+                            expect(res.statusCode).toBe(303);
+                            expect(wiki.title).toBe('Lakers');
+                            expect(wiki.body).toBe('Lakers are the best team ever');
+                            done();
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            done();
+                        });
+                    }
+                );
+            });
+        }); //END POST wikis/create
+
+        describe('GET /wikis/new', () => {
+            it('should render a new wiki form', (done) => {
+                request.get(`${base}new`, (err, res, body) => {
+                    expect(err).toBeNull();
+                    expect(body).toContain('New Wiki');
+                    done();
+                });
+            });
+        }); //END GET wikis/new
+
+        describe('GET /wikis/:id', () => {
+            it('should render a view with the selected wiki', (done) => {
+                request.get(`${base}${this.wiki.id}`, (err, res, body) => {
+                    expect(err).toBeNull();
+                    expect(body).toContain('Wookies');
+                    done();
+                });
+            });
+        }); //END GET wikis/:id
+
+        describe('POST /wikis/:id/destroy', () => {
+            it('should delete the wiki with the associated ID', (done) => {
+                Wiki.all()
+                .then((wikis) => {
+                    const wikiCountBeforeDelete = wikis.length;
+                    expect(wikiCountBeforeDelete).toBe(1);
+                    request.post(`${base}${this.wiki.id}/destroy`, (err, res, body) => {
+                        Wiki.all()
+                        .then((wikis) => {
+                            expect(err).toBeNull();
+                            expect(wikis.length).toBe(wikiCountBeforeDelete - 1);
+                            done();
+                        });
                     });
                 });
             });
-        });
-    }); //END POST /wikis/:id/destroy
 
-    describe('GET /wikis/:id/edit', () => {
-        it('should render a view with an edit wiki form', (done) => {
-            request.get(`${base}${this.wiki.id}/edit`, (err, res, body) => {
-                expect(err).toBeNull();
-                expect(body).toContain('Edit Wiki');
-                expect(body).toContain('Wookies');
-                done();
-            });
-        });
-    }); //END GET /wikis/:id/edit
-
-    describe('POST /wikis/:id/update', () => {
-        it('should update the wiki with the give values', (done) => {
-            const options = {
-                url: `${base}${this.wiki.id}/update`,
-                form: {
-                    title: 'Darth Vader',
-                    body: 'His clothes were black'
-                }
-            };
-
-            request.post(options,
-                (err, res, body) => {
-                    expect(err).toBeNull();
-                    Wiki.findOne({
-                        where: { id: this.wiki.id }
+            it('should not delete the wiki with the associated ID if user is not owner', (done) => {
+                User.create({
+                    email: 'someone@example.com',
+                    password: 'password',
+                    role: 0,
+                    username: 'someone'
+                })
+                .then((user) => {
+                    Wiki.create({
+                        title: 'Not My Wiki',
+                        body: 'really not mine',
+                        userId: user.id
                     })
                     .then((wiki) => {
-                        expect(wiki.title).toBe('Darth Vader');
-                        expect(wiki.body).toBe('His clothes were black');
+                        Wiki.all()
+                        .then((wikis) => {
+                            const wikiCountBeforeDelete = wikis.length;
+                            expect(wikiCountBeforeDelete).toBe(2);
+                            request.post(`${base}${wiki.id}/destroy`, (err, res, body) => {
+                                Wiki.all()
+                                .then((wikis) => {
+                                    expect(res.statusCode).toBe(500);
+                                    expect(wikis.length).toBe(wikiCountBeforeDelete);
+                                    done();
+                                });
+                            });
+                        });
+                    })
+                });
+            });
+        }); //END POST /wikis/:id/destroy
+
+        describe('GET /wikis/:id/edit', () => {
+            it('should render a view with an edit wiki form', (done) => {
+                request.get(`${base}${this.wiki.id}/edit`, (err, res, body) => {
+                    expect(err).toBeNull();
+                    expect(body).toContain('Edit Wiki');
+                    expect(body).toContain('Wookies');
+                    done();
+                });
+            });
+        }); //END GET /wikis/:id/edit
+
+        describe('POST /wikis/:id/update', () => {
+            it('should update the wiki with the give values', (done) => {
+                const options = {
+                    url: `${base}${this.wiki.id}/update`,
+                    form: {
+                        title: 'Darth Vader',
+                        body: 'His clothes were black'
+                    }
+                };
+
+                request.post(options,
+                    (err, res, body) => {
+                        expect(err).toBeNull();
+                        Wiki.findOne({
+                            where: { id: this.wiki.id }
+                        })
+                        .then((wiki) => {
+                            expect(wiki.title).toBe('Darth Vader');
+                            expect(wiki.body).toBe('His clothes were black');
+                            done();
+                        });
+                    }
+                );
+            });
+        }) //END POST /wikis/:id/update
+    }); //END STANDARD USER CONTEXT
+
+    //START ADMIN USER CONTEXT
+    describe('standard user performing CRUD actions for Wiki', () => {
+        beforeEach((done) => {
+            User.create({
+                email: 'admin@example.com',
+                password: 'password',
+                role: 1,
+                username: 'admin'
+            })
+            .then((user) => {
+                request.get({
+                    url: 'http://localhost:3000/auth/fake',
+                    form: {
+                        role: user.role,
+                        id: user.id,
+                        email: user.email,
+                        username: user.username
+                    }
+                },
+                    (err, res, body) => {
                         done();
-                    });
-                }
-            );
+                    }
+                )
+            });
         });
-    }) //END POST /wikis/:id/update
+
+        describe('POST /wikis/:id/destroy', () => {
+            it('should delete the wiki with the associated ID even if not owner', (done) => {
+                Wiki.all()
+                .then((wikis) => {
+                    const wikiCountBeforeDelete = wikis.length;
+                    expect(wikiCountBeforeDelete).toBe(1);
+                    request.post(`${base}${this.wiki.id}/destroy`, (err, res, body) => {
+                        Wiki.all()
+                        .then((wikis) => {
+                            expect(err).toBeNull();
+                            expect(wikis.length).toBe(wikiCountBeforeDelete - 1);
+                            done();
+                        });
+                    });
+                });
+            });
+        }); //END POST /wikis/:id/destroy
+    }); //END ADMIN USER CONTEXT
 });

@@ -9,10 +9,15 @@ module.exports = class ApplicationPolicy {
     }
 
     _isAdmin(){
-        return this.user && this.user.role == 'admin';
+        return this.user && this.user.role == 1;
+    }
+
+    _isPremium(){
+        return this.user && this.user.role == 2;
     }
 
     new(){
+        // console.log('this is in the policy/application file', this.user);
         return this.user != null;
     }
 
@@ -22,18 +27,5 @@ module.exports = class ApplicationPolicy {
 
     show(){
         return true;
-    }
-
-    edit(){
-        return this.new() &&
-            this.record && (this._isOwner() || this._isAdmin());
-    }
-
-    update(){
-        return this.edit();
-    }
-
-    destroy(){
-        return this.update();
     }
 }

@@ -1,4 +1,5 @@
 const Wiki = require('./models').Wiki;
+const Authorizer = require('../policies/wiki');
 
 module.exports = {
     getAllWikis(callback){
@@ -35,34 +36,48 @@ module.exports = {
         });
     },
 
-    deleteWiki(id, callback){
-        return Wiki.destroy({
-            where: {id}
-        })
+    deleteWiki(req, callback){
+        return Wiki.findById(req.params.id)
         .then((wiki) => {
-            callback(null, wiki);
+            const authorized = new Authorizer(req.user, wiki).destroy();
+
+            if(authorized){
+                wiki.destroy()
+                .then((res) => {
+                    callback(null, wiki);
+                });
+            } else {
+                req.flash('notice', 'You must be the owner of wiki or an admin to delete.');
+                callback(401);
+            }
         })
         .catch((err) => {
             callback(err);
-        });
+        })
     },
 
-    updateWiki(id, updatedWiki, callback){
-        return Wiki.findById(id)
+    updateWiki(req, updatedWiki, callback){
+        return Wiki.findById(req.params.id)
         .then((wiki) => {
             if(!wiki){
                 return callback('Wiki not found');
             }
+            const authorized = new Authorizer(req.user, wiki).update();
 
-            wiki.update(updatedWiki, {
-                fields: Object.keys(updatedWiki)
-            })
-            .then(() => {
-                callback(null, wiki);
-            })
-            .catch((err) => {
-                callback(err);
-            });
+            if(authorized){
+                wiki.update(updatedWiki, {
+                    fields: Object.keys(updatedWiki)
+                })
+                .then(() => {
+                    callback(null, wiki);
+                })
+                .catch((err) => {
+                    callback(err);
+                });
+            } else {
+                req.flash('notice', 'You must be signed in to do that.');
+                callback('Forbidden');
+            }
         });
     }
 }
