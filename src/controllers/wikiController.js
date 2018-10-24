@@ -56,9 +56,10 @@ module.exports = {
     destroy(req, res, next){
         wikiQueries.deleteWiki(req, (err, wiki) => {
             if(err){
-                res.redirect(500, `/wikis/${req.params.id}`)
+                req.flash('notice', 'You must be the owner of wiki or an admin to delete.');
+                res.redirect(`/wikis/${req.params.id}`);
             } else {
-                res.redirect(303, '/wikis')
+                res.redirect(303, '/wikis');
             }
         });
     },
@@ -83,6 +84,7 @@ module.exports = {
     update(req, res, next){
         wikiQueries.updateWiki(req, req.body, (err, wiki) => {
             if(err || wiki == null){
+                req.flash('notice', 'You must be signed in to do that.');
                 res.redirect(404, `/wikis/${req.params.id}/edit`);
             } else {
                 res.redirect(`/wikis/${wiki.id}`);

@@ -47,7 +47,6 @@ module.exports = {
                     callback(null, wiki);
                 });
             } else {
-                req.flash('notice', 'You must be the owner of wiki or an admin to delete.');
                 callback(401);
             }
         })
@@ -75,7 +74,6 @@ module.exports = {
                     callback(err);
                 });
             } else {
-                req.flash('notice', 'You must be signed in to do that.');
                 callback('Forbidden');
             }
         });
