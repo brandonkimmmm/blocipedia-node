@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <% include ../static/partials/head.ejs %>
+    </head>
+    <body>
+
+        <!-- Navigation -->
+        <% include ../static/partials/navbar.ejs %>
+
+        <!-- Page Content -->
+        <main class="container">
+            <h1><%= `${user.username}'s profile` %></h1>
+        </main>
+
+        <% include ../static/partials/baseScripts.ejs %>
+    </body>
+</html>

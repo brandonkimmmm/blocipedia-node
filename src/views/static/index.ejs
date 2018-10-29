@@ -15,9 +15,30 @@
 
             <!-- Jumbotron Header -->
             <header class="jumbotron my-4">
-                <h1 class="display-3">Welcome to Blocipedia!</h1>
-                <p class="lead">An application for users to create, contribute, and view wikis</p>
-                <a href="/users/signup" class="btn btn-primary btn-lg">Sign up</a>
+                <% if(currentUser){ %>
+                    <h1 class="display-3">Hello <%= currentUser.username %>!</h1>
+                    <% if(currentUser.role === 0) { %>
+                        <p class="lead">Want to be able to create private wikis? Click below to upgrade your account!</p>
+                        <form action="users/<%= currentUser.id %>/upgrade" method="POST">
+                            <script
+                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="pk_test_SzCvbipJ9yfY4isz80dsfHoV"
+                                data-amount="1500"
+                                data-name="Blocipedia"
+                                data-description="Upgrade Account to Premium"
+                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                data-locale="auto">
+                            </script>
+                        </form>
+                    <% } else if(currentUser.role === 1) { %>
+                        <p class="lead">Click below to downgrade your account from premiun to standard</p>
+                        <a href="/users/<%= currentUser.id %>/downgrade" class="btn btn-primary btn-lg">Downgrade</a>
+                    <% } %>
+                <% } else if(!currentUser) { %>
+                    <h1 class="display-3">Welcome to Blocipedia!</h1>
+                    <p class="lead">An application for users to create, contribute, and view wikis</p>
+                    <a href="/users/signup" class="btn btn-primary btn-lg">Sign up</a>
+                <% } %>
             </header>
 
             <!-- Page Features -->

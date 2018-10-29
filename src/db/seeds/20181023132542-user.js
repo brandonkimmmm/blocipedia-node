@@ -4,7 +4,7 @@ const faker = require('faker');
 
 let users = [];
 
-for(let i = 2; i <= 16; i++){
+for(let i = 3; i <= 17; i++){
   users.push({
     username: faker.internet.userName(),
     email: faker.internet.email(),

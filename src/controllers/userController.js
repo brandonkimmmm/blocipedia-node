@@ -57,5 +57,56 @@ module.exports = {
         req.logout();
         req.flash('notice', 'You\'ve successfully signed out!');
         res.redirect('/');
+    },
+
+    profile(req, res, next){
+        userQueries.getUser(req.params.id, (err, user) => {
+            if(err || user === undefined){
+                req.flash('notice', 'No user found with that ID.');
+                res.redirect('/');
+            } else {
+                res.render('users/profile', {user});
+            }
+        })
+    },
+
+    upgrade(req, res, next){
+        // Set your secret key: remember to change this to your live secret key in production
+        // See your keys here: https://dashboard.stripe.com/account/apikeys
+        let stripe = require("stripe")("sk_test_yXAcyQFh19olMMrG6dU1H7ev");
+
+        // Token is created using Checkout or Elements!
+        // Get the payment token ID submitted by the form:
+        const token = req.body.stripeToken; // Using Express
+        console.log('this is the token', token);
+
+        const charge = stripe.charges.create({
+            amount: 1500,
+            currency: 'usd',
+            description: 'Upgrade to Premium',
+            source: token
+        });
+
+        userQueries.upgradeUser(req.params.id, (err, user) => {
+            if(err || user === undefined){
+                req.flash('notice', 'Something went wrong');
+                res.redirect('/');
+            } else {
+                req.flash('notice', 'Account successfully updated!');
+                res.redirect('/');
+            }
+        })
+    },
+
+    downgrade(req, res, next){
+        userQueries.downgradeUser(req.params.id, (err, user) => {
+            if(err || user === undefined){
+                // req.flash('notice', 'Something went wrong');
+                res.redirect('/');
+            } else {
+                req.flash('notice', 'Account successfully downgraded');
+                req.redirect('/');
+            }
+        })
     }
 }

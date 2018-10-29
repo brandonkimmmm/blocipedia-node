@@ -19,5 +19,56 @@ module.exports = {
             console.log(err);
             callback(err);
         })
+    },
+
+    getUser(id, callback){
+        User.findById(id)
+        .then((user) => {
+            if(!user) {
+                callback(404);
+            } else {
+                callback(null, user);
+            }
+        })
+        .catch((err) => {
+            callback(err);
+        });
+    },
+
+    upgradeUser(id, callback){
+        // update role from 0 to 1
+        User.findById(id)
+        .then((user) => {
+            user.update({
+                role: 1
+            })
+            .then((user) => {
+                callback(null, user);
+            })
+            .catch((err) => {
+                callback(err);
+            })
+        })
+        .catch((err) => {
+            callback(err);
+        })
+    },
+
+    downgradeUser(id, callback){
+        User.findById(id)
+        .then((user) => {
+            user.update({
+                role: 0
+            })
+            .then((user) => {
+                callback(null, user);
+            })
+            .catch((err) => {
+                callback(err);
+            })
+        })
+        .catch((err) => {
+            callback(err);
+        })
     }
 }

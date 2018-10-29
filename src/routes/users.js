@@ -14,4 +14,10 @@ router.post('/users/signin', validation.validateUserSignIn, userController.signI
 
 router.get('/users/signout', userController.signOut);
 
+router.get('/users/:id', userController.profile);
+
+router.post('/users/:id/upgrade', userController.upgrade);
+
+router.get('/users/:id/downgrade', userController.downgrade);
+
 module.exports = router;
