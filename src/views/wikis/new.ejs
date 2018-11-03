@@ -18,6 +18,13 @@
                     <label for="body">Body</label>
                     <textarea name="body" rows="4" class="form-control" placeholder="Enter Body"></textarea>
                 </div>
+                <% if(currentUser.role === 1 || currentUser.role === 2){ %>
+                    <div class="form-group">
+                        <label for="private">Set Private?</label>
+                        <input type="radio" name="private" value="true" checked>Yes
+                        <input type="radio" name="private" value="false">No
+                    </div>
+                <% } %>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </main>

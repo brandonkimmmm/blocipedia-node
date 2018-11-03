@@ -15,11 +15,38 @@
 
             <ul class="list-groups">
                 <% wikis.forEach((wiki) => { %>
-                    <li class="list-group-item">
-                        <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
-                    </li>
+                    <% if(wiki.private === false){ %>
+                        <li class="list-group-item">
+                            <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
+                        </li>
+                    <% } %>
                 <% }) %>
             </ul>
+
+            <% if(currentUser && (currentUser.role === 1 || currentUser.role === 2)){ %>
+                <h1>Private Wikis</h1>
+
+                <ul class="list-groups">
+                    <% if(currentUser.role === 1){ %>
+                        <% wikis.forEach((wiki) => { %>
+                            <% if(wiki.private === true && wiki.userId === currentUser.id){ %>
+                                <li class="list-group-item">
+                                    <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
+                                </li>
+                            <% } %>
+                        <% }) %>
+                    <% } %>
+                    <% if(currentUser.role === 2){ %>
+                        <% wikis.forEach((wiki) => { %>
+                            <% if(wiki.private === true){ %>
+                                <li class="list-group-item">
+                                    <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
+                                </li>
+                            <% } %>
+                        <% }) %>
+                    <% } %>
+                </ul>
+            <% } %>
         </main>
 
         <% include ../static/partials/baseScripts.ejs %>

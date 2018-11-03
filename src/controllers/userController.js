@@ -101,11 +101,11 @@ module.exports = {
     downgrade(req, res, next){
         userQueries.downgradeUser(req.params.id, (err, user) => {
             if(err || user === undefined){
-                // req.flash('notice', 'Something went wrong');
+                req.flash('notice', 'Something went wrong');
                 res.redirect('/');
             } else {
                 req.flash('notice', 'Account successfully downgraded');
-                req.redirect('/');
+                res.redirect('/');
             }
         })
     }

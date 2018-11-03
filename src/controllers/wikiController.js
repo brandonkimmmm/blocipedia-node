@@ -28,7 +28,8 @@ module.exports = {
             let newWiki = {
                 title: req.body.title,
                 body: req.body.body,
-                userId: req.user.id
+                userId: req.user.id,
+                private: (req.body.private === 'true') || false
             };
             wikiQueries.addWiki(newWiki, (err, wiki) => {
                 if(err){
@@ -44,9 +45,10 @@ module.exports = {
     },
 
     show(req, res, next){
-        wikiQueries.getWiki(req.params.id, (err, wiki) => {
+        wikiQueries.getWiki(req, (err, wiki) => {
             if(err || wiki == null){
-                res.redirect(404, '/');
+                req.flash('notice', 'You are not authorized to view that wiki');
+                res.redirect('/wikis');
             } else {
                 res.render('wikis/show', {wiki});
             }

@@ -16,7 +16,8 @@ module.exports = {
         return Wiki.create({
             title: newWiki.title,
             body: newWiki.body,
-            userId: newWiki.userId
+            userId: newWiki.userId,
+            private: newWiki.private
         })
         .then((wiki) => {
             callback(null, wiki);
@@ -26,10 +27,20 @@ module.exports = {
         });
     },
 
-    getWiki(id, callback){
-        return Wiki.findById(id)
+    getWiki(req, callback){
+        return Wiki.findById(req.params.id)
         .then((wiki) => {
-            callback(null, wiki);
+            if(wiki.private === true){
+                const authorized = new Authorizer(req.user, wiki).show();
+                console.log('this is the authorized', authorized);
+                if(authorized){
+                    callback(null, wiki);
+                } else {
+                    callback(401);
+                }
+            } else {
+                callback(null, wiki);
+            }
         })
         .catch((err) => {
             callback(err);
