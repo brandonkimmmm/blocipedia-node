@@ -17,8 +17,7 @@ module.exports = class ApplicationPolicy {
     }
 
     new(){
-        // console.log('this is in the policy/application file', this.user);
-        return this.user != null;
+        return this.user !== null;
     }
 
     create(){

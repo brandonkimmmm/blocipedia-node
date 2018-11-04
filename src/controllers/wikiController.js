@@ -1,5 +1,6 @@
 const wikiQueries = require('../db/queries.wikis.js');
 const Authorizer = require('../policies/wiki');
+const markdown = require('markdown').markdown;
 
 module.exports = {
     index(req, res, next){
@@ -50,7 +51,8 @@ module.exports = {
                 req.flash('notice', 'You are not authorized to view that wiki');
                 res.redirect('/wikis');
             } else {
-                res.render('wikis/show', {wiki});
+                let body = markdown.toHTML(wiki.body);
+                res.render('wikis/show', {wiki, body});
             }
         });
     },
@@ -67,16 +69,16 @@ module.exports = {
     },
 
     edit(req, res, next){
-        wikiQueries.getWiki(req.params.id, (err, wiki) => {
+        wikiQueries.getWiki(req, (err, wiki) => {
             if(err || wiki == null){
                 res.redirect(404, '/');
             } else {
                 const authorized = new Authorizer(req.user, wiki).edit();
-
+                console.log(authorized);
                 if(authorized){
                     res.render('wikis/edit', {wiki});
                 } else {
-                    req.flash('notice', 'You must be signed in to do that.')
+                    req.flash('notice', 'You must be the owner or an admin to do that.')
                     res.redirect(`/wikis/${req.params.id}`);
                 }
             }

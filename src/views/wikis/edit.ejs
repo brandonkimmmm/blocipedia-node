@@ -7,6 +7,7 @@
         <% include ../static/partials/navbar.ejs %>
 
         <main class="container">
+        <% include ../static/partials/messages.ejs %>
             <h1>Edit Wiki</h1>
 
             <form action="/wikis/<%= wiki.id %>/update" method="post">
@@ -16,6 +17,7 @@
                 </div>
                 <div class="form-group">
                     <label for="body">Body</label>
+                    <small class="text-muted" id="bodyHelp">You may use markdown syntax</small>
                     <textarea class="form-control" name="body" rows="4" placeholder="Enter Body"><%= wiki.body %></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>

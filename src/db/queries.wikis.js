@@ -32,7 +32,6 @@ module.exports = {
         .then((wiki) => {
             if(wiki.private === true){
                 const authorized = new Authorizer(req.user, wiki).show();
-                console.log('this is the authorized', authorized);
                 if(authorized){
                     callback(null, wiki);
                 } else {
