@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     private: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
       defaultValue: false
     },
     userId: {
@@ -23,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
     Wiki.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE'
+    });
+
+    Wiki.hasMany(models.Collaborator, {
+      foreignKey: 'wikiId',
+      as: 'collaborators'
     });
   };
   return Wiki;
