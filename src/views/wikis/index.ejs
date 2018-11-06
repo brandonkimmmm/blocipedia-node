@@ -12,6 +12,11 @@
         <main class="container">
 
             <h1>Wikis</h1>
+            <% if(currentUser){ %>
+                <a href="/wikis/new" class="btn btn-warning">Add Wiki</a>
+            <% } %>
+
+            <br>
 
             <ul class="list-groups">
                 <% wikis.forEach((wiki) => { %>

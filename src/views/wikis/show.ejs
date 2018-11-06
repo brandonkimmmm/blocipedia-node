@@ -15,6 +15,18 @@
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             <p><%- body %></p>
+
+            <div class="container">
+                <h3>Collaborators</h3>
+                <% if(currentUser && wiki.private && ((currentUser.role === 1 && currentUser.id === wiki.userId) || currentUser.role === 2)){ %>
+                    <a href="/wikis/<%= wiki.id %>/collaborators/add" class="btn btn-warning">Add Collaborator</a>
+                <% } %>
+                <ul class="list-groups">
+                    <li class="list-group-item">
+                        <a href="#">Hello</a>
+                    </li>
+                </ul>
+            </div>
         </main>
 
         <% include ../static/partials/baseScripts.ejs %>
