@@ -41,7 +41,6 @@ describe("routes : users", () => {
                 (err, res, body) => {
                     User.findOne({where: {username: 'user'}})
                     .then((user) => {
-                        // console.log('this is the user', user);
                         expect(user).not.toBeNull();
                         expect(user.username).toBe('user');
                         expect(user.email).toBe('user@example.com');

@@ -10,30 +10,29 @@
         <% include ../static/partials/messages.ejs %>
 
         <main class="container">
+            <% if(currentUser && result.collaborations.length !== 0){ %>
+                <h1>Collaborations</h1>
 
-            <h1>Wikis</h1>
-            <% if(currentUser){ %>
-                <a href="/wikis/new" class="btn btn-warning">Add Wiki</a>
+                <ul class="list-groups">
+                    <% result.collaborations.forEach((collab) => { %>
+                        <% result.wikis.forEach((wiki) => { %>
+                            <% if(collab.wikiId === wiki.id){ %>
+                                <li class="list-group-item">
+                                    <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
+                                </li>
+                            <% } %>
+                        <% }) %>
+                    <% }) %>
+                </ul>
+                <hr>
             <% } %>
-
-            <br>
-
-            <ul class="list-groups">
-                <% wikis.forEach((wiki) => { %>
-                    <% if(wiki.private === false){ %>
-                        <li class="list-group-item">
-                            <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
-                        </li>
-                    <% } %>
-                <% }) %>
-            </ul>
 
             <% if(currentUser && (currentUser.role === 1 || currentUser.role === 2)){ %>
                 <h1>Private Wikis</h1>
 
                 <ul class="list-groups">
                     <% if(currentUser.role === 1){ %>
-                        <% wikis.forEach((wiki) => { %>
+                        <% result.wikis.forEach((wiki) => { %>
                             <% if(wiki.private === true && wiki.userId === currentUser.id){ %>
                                 <li class="list-group-item">
                                     <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
@@ -42,7 +41,7 @@
                         <% }) %>
                     <% } %>
                     <% if(currentUser.role === 2){ %>
-                        <% wikis.forEach((wiki) => { %>
+                        <% result.wikis.forEach((wiki) => { %>
                             <% if(wiki.private === true){ %>
                                 <li class="list-group-item">
                                     <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
@@ -51,7 +50,24 @@
                         <% }) %>
                     <% } %>
                 </ul>
+                <hr>
             <% } %>
+
+            <h1>Wikis</h1>
+
+            <% if(currentUser){ %>
+                <a href="/wikis/new" class="btn btn-warning">Add Wiki</a>
+            <% } %>
+
+            <ul class="list-groups">
+                <% result.wikis.forEach((wiki) => { %>
+                    <% if(wiki.private === false){ %>
+                        <li class="list-group-item">
+                            <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
+                        </li>
+                    <% } %>
+                <% }) %>
+            </ul>
         </main>
 
         <% include ../static/partials/baseScripts.ejs %>

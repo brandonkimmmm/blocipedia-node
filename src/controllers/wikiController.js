@@ -4,11 +4,11 @@ const markdown = require('markdown').markdown;
 
 module.exports = {
     index(req, res, next){
-        wikiQueries.getAllWikis((err, wikis) => {
+        wikiQueries.getAllWikis(req, (err, result) => {
             if(err){
                 res.redirect(500, 'static/index');
             } else {
-                res.render('wikis/index', {wikis});
+                res.render('wikis/index', {result});
             }
         })
     },
@@ -46,13 +46,13 @@ module.exports = {
     },
 
     show(req, res, next){
-        wikiQueries.getWiki(req, (err, wiki) => {
-            if(err || wiki == null){
+        wikiQueries.getWiki(req, (err, result) => {
+            if(err || result.wiki == null){
                 req.flash('notice', 'You are not authorized to view that wiki');
                 res.redirect('/wikis');
             } else {
-                let body = markdown.toHTML(wiki.body);
-                res.render('wikis/show', {wiki, body});
+                let body = markdown.toHTML(result.wiki.body);
+                res.render('wikis/show', {result, body});
             }
         });
     },
@@ -69,12 +69,12 @@ module.exports = {
     },
 
     edit(req, res, next){
-        wikiQueries.getWiki(req, (err, wiki) => {
-            if(err || wiki == null){
+        wikiQueries.getWiki(req, (err, result) => {
+            if(err || result.wiki == null){
                 res.redirect(404, '/');
             } else {
-                const authorized = new Authorizer(req.user, wiki).edit();
-                console.log(authorized);
+                const authorized = new Authorizer(req.user, result.wiki, result.collaborators).edit();
+                let wiki = result.wiki;
                 if(authorized){
                     res.render('wikis/edit', {wiki});
                 } else {

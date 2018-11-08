@@ -1,11 +1,29 @@
 const Wiki = require('./models').Wiki;
+const Collaborator = require('./models').Collaborator;
 const Authorizer = require('../policies/wiki');
 
 module.exports = {
-    getAllWikis(callback){
+    getAllWikis(req, callback){
+        let result = {
+            wikis: null,
+            collaborations: null
+        };
         return Wiki.all()
         .then((wikis) => {
-            callback(null, wikis);
+            result.wikis = wikis;
+            if(!req.user){
+                callback(null, result);
+            } else {
+                Collaborator.findAll({
+                    where: {
+                        userId: req.user.id
+                    }
+                })
+                .then((collabs) => {
+                    result.collaborations = collabs;
+                    callback(null, result);
+                })
+            }
         })
         .catch((err) => {
             callback(err);
@@ -28,17 +46,30 @@ module.exports = {
     },
 
     getWiki(req, callback){
+        let result = {
+            wiki: null,
+            collaborators: null
+        };
         return Wiki.findById(req.params.id)
         .then((wiki) => {
+            result.wiki = wiki;
             if(wiki.private === true){
-                const authorized = new Authorizer(req.user, wiki).show();
-                if(authorized){
-                    callback(null, wiki);
-                } else {
-                    callback(401);
-                }
+                Collaborator.findAll({
+                    where: {
+                        wikiId: wiki.id
+                    }
+                })
+                .then((collaborators) => {
+                    result.collaborators = collaborators;
+                    const authorized = new Authorizer(req.user, wiki, collaborators).show();
+                    if(authorized){
+                        callback(null, result);
+                    } else {
+                        callback(401);
+                    }
+                })
             } else {
-                callback(null, wiki);
+                callback(null, result);
             }
         })
         .catch((err) => {
@@ -71,21 +102,28 @@ module.exports = {
             if(!wiki){
                 return callback('Wiki not found');
             }
-            const authorized = new Authorizer(req.user, wiki).update();
+            Collaborator.findAll({
+                where: {
+                    wikiId: wiki.id
+                }
+            })
+            .then((collaborators) => {
+                const authorized = new Authorizer(req.user, wiki, collaborators).update();
 
-            if(authorized){
-                wiki.update(updatedWiki, {
-                    fields: Object.keys(updatedWiki)
-                })
-                .then(() => {
-                    callback(null, wiki);
-                })
-                .catch((err) => {
-                    callback(err);
-                });
-            } else {
-                callback('Forbidden');
-            }
+                if(authorized){
+                    wiki.update(updatedWiki, {
+                        fields: Object.keys(updatedWiki)
+                    })
+                    .then(() => {
+                        callback(null, wiki);
+                    })
+                    .catch((err) => {
+                        callback(err);
+                    });
+                } else {
+                    callback('Forbidden');
+                }
+            })
         });
     }
 }
