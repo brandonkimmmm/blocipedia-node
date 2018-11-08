@@ -25,7 +25,12 @@
                     <ul class="list-groups">
                         <% result.collaborators.forEach((collab) => { %>
                             <li class="list-group-item">
-                                <%= collab.username %>
+                                <a href="/users/<%= collab.userId %>"><%= collab.username %></a>
+                                <% if(currentUser.id === result.wiki.userId){ %>
+                                <form style="display:initial" action="/wikis/<%= collab.wikiId %>/collaborators/<%= collab.id %>/destroy" method="post">
+                                    <button type="submit" class="btn btn-danger btn-sm float-right">Remove</button>
+                                </form>
+                                <% } %>
                             </li>
                         <% }) %>
                     </ul>

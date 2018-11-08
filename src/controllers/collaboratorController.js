@@ -13,11 +13,22 @@ module.exports = {
         };
         collaboratorQueries.addCollaborator(collaboratorEmail, req.params.wikiId, (err, collab) => {
             if(err || collab == null){
-                req.flash('notice', 'No user found with that email')
+                req.flash('notice', err)
                 res.redirect(`/wikis/${req.params.wikiId}/collaborators/new`);
             } else {
                 req.flash('notice', 'Successfully added collaborator');
                 res.redirect(`/wikis/${req.params.wikiId}`);
+            }
+        })
+    },
+
+    destroy(req, res, next){
+        collaboratorQueries.deleteCollaborator(req, (err, collab) => {
+            if(err){
+                req.flash('notice', 'You must be the owner of the wiki or an admin to delete.');
+                res.redirect(`/wikis/${req.params.wikiId}`);
+            } else {
+                res.redirect(303, `/wikis/${req.params.wikiId}`);
             }
         })
     }
