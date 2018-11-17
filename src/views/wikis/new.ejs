@@ -20,7 +20,7 @@
                     <small class="text-muted" id="bodyHelp">You may use markdown syntax</small>
                     <textarea name="body" rows="4" class="form-control" placeholder="Enter Body"></textarea>
                 </div>
-                <% if(currentUser.role === 1 || currentUser.role === 2){ %>
+                <% if(currentUser && (currentUser.role === 1 || currentUser.role === 2)){ %>
                     <div class="form-group">
                         <label for="private">Set Private?</label>
                         <input type="radio" name="private" value="true" checked>Yes

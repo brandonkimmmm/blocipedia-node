@@ -9,8 +9,14 @@ module.exports = {
             role = req.body.role || role;
 
             if(id && id != 0){
-                // console.log('this is in mock-auth', req.body);
                 req.user = {
+                    'id': id,
+                    'username': username,
+                    'email': email,
+                    'role': role
+                };
+
+                currentUser = {
                     'id': id,
                     'username': username,
                     'email': email,

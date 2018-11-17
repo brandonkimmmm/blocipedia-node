@@ -201,115 +201,119 @@ describe('routes : wikis', () => {
         }) //END POST /wikis/:id/update
     }); //END STANDARD USER CONTEXT
 
-    // //START PREMIUM USER CONTEXT
-    // describe('premium user performing CRUD actions for Wiki', () => {
-    //     beforeEach((done) => {
-    //         User.create({
-    //             email: 'premium@example.com',
-    //             password: 'password',
-    //             role: 1,
-    //             username: 'premium'
-    //         })
-    //         .then((user) => {
-    //             this.user = user;
-    //             request.get({
-    //                 url: 'http://localhost:3000/auth/fake',
-    //                 form: {
-    //                     role: user.role,
-    //                     id: user.id,
-    //                     email: user.email,
-    //                     username: user.username
-    //                 }
-    //             })
-    //         });
-    //     });
+    //START PREMIUM USER CONTEXT
+    describe('premium user performing CRUD actions for Wiki', () => {
+        beforeEach((done) => {
+            User.create({
+                email: 'premium@example.com',
+                password: 'password',
+                role: 1,
+                username: 'premium'
+            })
+            .then((user) => {
+                this.user = user;
+                request.get({
+                    url: 'http://localhost:3000/auth/fake',
+                    form: {
+                        role: user.role,
+                        id: user.id,
+                        email: user.email,
+                        username: user.username
+                    }
+                },
+                    (err, res, body) => {
+                        done();
+                });
+            });
+        });
 
-    //     describe('POST /wiki/create', () => {
-    //         it('should create a private wiki', (done) => {
-    //             const options = {
-    //                 url: `${base}create`,
-    //                 form: {
-    //                     title: 'private wiki',
-    //                     body: 'my private wiki',
-    //                     userId: this.user.id,
-    //                     private: true
-    //                 }
-    //             };
-    //             request.post(options,
-    //                 (err, res, body) => {
-    //                     Wiki.findOne({where: {title: 'private wiki'}})
-    //                     .then((wiki) => {
-    //                         expect(res.statusCode).toBe(303);
-    //                         expect(wiki.title).toBe('private');
-    //                         expect(wiki.body).toBe('Lakers are the best team ever');
-    //                         done();
-    //                     })
-    //                     .catch((err) => {
-    //                         console.log(err);
-    //                         done();
-    //                     });
-    //                 }
-    //             );
-    //         });
-    //     });
+        describe('POST /wiki/create', () => {
+            it('should create a private wiki', (done) => {
+                const options = {
+                    url: `${base}create`,
+                    form: {
+                        title: 'private wiki',
+                        body: 'my private wiki',
+                        userId: this.user.id,
+                        private: true
+                    }
+                };
+                request.post(options,
+                    (err, res, body) => {
+                        Wiki.findOne({where: {title: 'private wiki'}})
+                        .then((wiki) => {
+                            expect(res.statusCode).toBe(303);
+                            expect(wiki.title).toBe('private wiki');
+                            expect(wiki.body).toBe('my private wiki');
+                            done();
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            done();
+                        });
+                    }
+                );
+            });
+        });
 
-    //     describe('GET /wikis', () => {
-    //         it('should show users private wikis as well as public ones', (done) => {
-    //             Wiki.create({
-    //                 title: 'private wiki',
-    //                 body: 'my private wiki',
-    //                 private: true,
-    //                 userId: this.user
-    //             })
-    //             .then((wiki) => {
-    //                 request.get(base, (err, res, body) => {
-    //                     expect(res.statusCode).toBe(200);
-    //                     expect(err).toBeNull();
-    //                     expect(body).toContain('Wikis');
-    //                     expect(body).toContain('Wookies');
-    //                     expect(body).toContain('Private Wikis');
-    //                     expect(body).toContain('private wiki');
-    //                     done();
-    //                 });
-    //             })
-    //             .catch((err) => {
-    //                 console.log(err);
-    //                 done();
-    //             })
-    //         });
+        describe('GET /wikis', () => {
+            it('should show users private wikis as well as public ones', (done) => {
+                Wiki.create({
+                    title: 'private wiki',
+                    body: 'my private wiki',
+                    private: true,
+                    userId: this.user.id
+                })
+                .then((wiki) => {
+                    request.get(base, (err, res, body) => {
+                        expect(res.statusCode).toBe(200);
+                        expect(err).toBeNull();
+                        expect(body).toContain('Wikis');
+                        expect(body).toContain('Wookies');
+                        expect(body).toContain('Private Wikis');
+                        expect(body).toContain('private wiki');
+                        done();
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                    done();
+                })
+            });
 
-    //         it('should not show private wikis from other users', (done) => {
-    //             User.create({
-    //                 email: 'other@other.com',
-    //                 password: 'password',
-    //                 role: 1,
-    //                 username: 'other'
-    //             })
-    //             .then((user) => {
-    //                 Wiki.create({
-    //                     title: 'other private',
-    //                     body: 'private wiki',
-    //                     userId: user.id
-    //                 })
-    //                 .then((wiki) => {
-    //                     request.get(base, (err, res, body) => {
-    //                         expect(res.statusCode).toBe(200);
-    //                         expect(err).toBeNull();
-    //                         expect(body).toContain('Wikis');
-    //                         expect(body).toContain('Private Wikis');
-    //                         expect(body).not.toContain('other private');
-    //                         expect(body).toContain('Wookies');
-    //                         done();
-    //                     });
-    //                 })
-    //                 .catch((err) => {
-    //                     console.log(err);
-    //                     done();
-    //                 });
-    //             });
-    //         });
-    //     }); // END GET /wiki
-    // }); //END PREMIUM USER CONTEXT
+            it('should not show private wikis from other users', (done) => {
+                User.create({
+                    email: 'other@other.com',
+                    password: 'password',
+                    role: 1,
+                    username: 'other'
+                })
+                .then((user) => {
+                    Wiki.create({
+                        title: 'other private',
+                        body: 'private wiki',
+                        userId: user.id,
+                        private: true
+                    })
+                    .then((wiki) => {
+                        request.get(base, (err, res, body) => {
+                            expect(res.statusCode).toBe(200);
+                            expect(err).toBeNull();
+                            expect(body).toContain('Wikis');
+                            expect(body).toContain('Private Wikis');
+                            expect(body).not.toContain('other private');
+                            expect(body).toContain('Wookies');
+                            done();
+                        });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        done();
+                    });
+                });
+            });
+        }); // END GET /wiki
+    }); //END PREMIUM USER CONTEXT
 
     //START ADMIN USER CONTEXT
     describe('standard user performing CRUD actions for Wiki', () => {
