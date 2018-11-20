@@ -21,6 +21,18 @@ module.exports = {
         allowNull: false,
         type: Sequelize.BOOLEAN
       },
+      headerImage: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      profileImage: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      username: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -30,6 +30,9 @@ module.exports = {
                 title: req.body.title,
                 body: req.body.body,
                 userId: req.user.id,
+                username: req.user.username,
+                headerImage: req.body.headerImage || undefined,
+                profileImage: req.body.profileImage || undefined,
                 private: (req.body.private === 'true') || false
             };
             wikiQueries.addWiki(newWiki, (err, wiki) => {

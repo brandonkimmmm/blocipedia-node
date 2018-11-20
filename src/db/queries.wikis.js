@@ -1,4 +1,5 @@
 const Wiki = require('./models').Wiki;
+const User = require('./models').User;
 const Collaborator = require('./models').Collaborator;
 const Authorizer = require('../policies/wiki');
 
@@ -35,7 +36,10 @@ module.exports = {
             title: newWiki.title,
             body: newWiki.body,
             userId: newWiki.userId,
-            private: newWiki.private
+            username: newWiki.username,
+            private: newWiki.private,
+            headerImage: newWiki.headerImage,
+            profileImage: newWiki.profileImage
         })
         .then((wiki) => {
             callback(null, wiki);

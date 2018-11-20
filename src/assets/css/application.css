@@ -5,3 +5,7 @@ body {
 .wiki-index-header {
     text-align: center;
 }
+
+.img-fluid {
+    max-width: 100%;
+}

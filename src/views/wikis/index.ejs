@@ -9,7 +9,7 @@
 
         <% include ../static/partials/messages.ejs %>
 
-        <main class="container">
+        <main class="container-fluid">
             <% let col = "col-12" %>
             <% if(currentUser && result.collaborations.length !== 0) { %>
                 <% result.collaborations.forEach((collab) => { %>
@@ -72,6 +72,7 @@
                             <span>Title</span> <span class="float-right">Updated</span>
                         </li>
                         <% result.wikis.forEach((wiki) => { %>
+                            <% console.log(wiki) %>
                             <li class="list-group-item">
                                     <% if(wiki.private) { %>
                                         <i class="fas fa-lock"></i>

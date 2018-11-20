@@ -8,34 +8,49 @@
 
         <% include ../static/partials/messages.ejs %>
 
-        <main class="container">
-            <h1><%= result.wiki.title %></h1>
-                <a href="/wikis/<%= result.wiki.id %>/edit" class="btn btn-warning">Edit</a>
-                <form style="display:initial" action="/wikis/<%= result.wiki.id %>/destroy" method="post">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            <p><%- body %></p>
+        <header class="jumbotron" style="background-image:url(<%= result.wiki.headerImage %>);background-size: cover;height: 300px;">
+        </header>
+        <main class="container-fluid">
 
-            <% if(result.wiki.private){ %>
-                <div class="container">
-                    <h3>Collaborators</h3>
-                    <% if(currentUser && ((currentUser.role === 1 && currentUser.id === result.wiki.userId) || currentUser.role === 2)){ %>
-                        <a href="/wikis/<%= result.wiki.id %>/collaborators/new" class="btn btn-warning">Add Collaborator</a>
+            <div class="row">
+                <div class="col-9">
+                    <h1><%= result.wiki.title %></h1>
+                    <% if(currentUser && currentUser.id === result.wiki.userId){ %>
+                        <a href="/wikis/<%= result.wiki.id %>/edit" class="btn btn-warning">Edit</a>
+                        <form style="display:initial" action="/wikis/<%= result.wiki.id %>/destroy" method="post">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     <% } %>
-                    <ul class="list-groups">
-                        <% result.collaborators.forEach((collab) => { %>
-                            <li class="list-group-item">
-                                <a href="/users/<%= collab.userId %>"><%= collab.username %></a>
-                                <% if(currentUser.id === result.wiki.userId){ %>
-                                <form style="display:initial" action="/wikis/<%= collab.wikiId %>/collaborators/<%= collab.id %>/destroy" method="post">
-                                    <button type="submit" class="btn btn-danger btn-sm float-right">Remove</button>
-                                </form>
-                                <% } %>
-                            </li>
-                        <% }) %>
-                    </ul>
+                    <p><%- body %></p>
                 </div>
-            <% } %>
+                <div class="col-3 text-center">
+                    <figure class="figure">
+                        <img src="<%= result.wiki.profileImage %>" class="figure-img img-fluid rounded" alt="Profile Picture" style="height: 500px;">
+                    </figure>
+                    <h1>Created By: <span><%= result.wiki.username %></span></h1>
+                    <% if(result.wiki.private){ %>
+                        <div class="container">
+                            <h3>Collaborators</h3>
+                            <% if(currentUser && ((currentUser.role === 1 && currentUser.id === result.wiki.userId) || currentUser.role === 2)){ %>
+                                <a href="/wikis/<%= result.wiki.id %>/collaborators/new" class="btn btn-warning">Add Collaborator</a>
+                            <% } %>
+                            <ul class="list-groups">
+                                <% result.collaborators.forEach((collab) => { %>
+                                    <li class="list-group-item">
+                                        <a href="/users/<%= collab.userId %>"><%= collab.username %></a>
+                                        <% if(currentUser.id === result.wiki.userId){ %>
+                                            <form style="display:initial" action="/wikis/<%= collab.wikiId %>/collaborators/<%= collab.id %>/destroy" method="post">
+                                                <button type="submit" class="btn btn-danger btn-sm float-right">Remove</button>
+                                            </form>
+                                        <% } %>
+                                    </li>
+                                <% }) %>
+                            </ul>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+
         </main>
 
         <% include ../static/partials/baseScripts.ejs %>

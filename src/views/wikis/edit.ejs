@@ -14,11 +14,19 @@
                 <div class="form-group">
                     <label for="title">Wiki title</label>
                     <input value="<%= wiki.title %>" type="text" class="form-control" name="title" aria-describedby="titleHelp" placeholder="Enter Title">
+
+                    <label for="headerImage">Header Image URL</label>
+                    <small class="text-muted" id="headerImageHelp">Leave blank to use default image.</small>
+                    <input value="<%= wiki.headerImage %>" type="text" class="form-control" name="headerImage" aria-describedby="headerImageHelp" placeholder="Enter Header Image URL">
+
+                    <label for="profileImage">Profile Image URL</label>
+                    <small class="text-muted" id="profileImageHelp">Leave blank to use default image.</small>
+                    <input value="<%= wiki.profileImage %>" type="text" class="form-control" name="profileImage" aria-describedby="profileImageHelp" placeholder="Enter Profile Image URL">
                 </div>
                 <div class="form-group">
                     <label for="body">Body</label>
                     <small class="text-muted" id="bodyHelp">You may use markdown syntax</small>
-                    <textarea class="form-control" name="body" rows="4" placeholder="Enter Body"><%= wiki.body %></textarea>
+                    <textarea class="form-control" name="body" rows="20" placeholder="Enter Body"><%= wiki.body %></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
