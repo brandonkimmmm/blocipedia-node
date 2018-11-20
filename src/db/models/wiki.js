@@ -44,6 +44,14 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'wikiId',
       as: 'collaborators'
     });
+
+    Wiki.addScope('lastFiveFor', (userId) => {
+      return {
+        where: { userId: userId },
+        limit: 5,
+        order: [['createdAt', 'DESC']]
+      }
+    });
   };
   return Wiki;
 };

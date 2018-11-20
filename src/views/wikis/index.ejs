@@ -72,14 +72,13 @@
                             <span>Title</span> <span class="float-right">Updated</span>
                         </li>
                         <% result.wikis.forEach((wiki) => { %>
-                            <% console.log(wiki) %>
                             <li class="list-group-item">
-                                    <% if(wiki.private) { %>
-                                        <i class="fas fa-lock"></i>
-                                    <% } %>
-                                    <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
-                                    <span class="float-right"><%= wiki.updatedAt.toString().substring(4, 15) %></span>
-                                </li>
+                                <% if(wiki.private) { %>
+                                    <i class="fas fa-lock"></i>
+                                <% } %>
+                                <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
+                                <span class="float-right"><%= wiki.updatedAt.toString().substring(4, 15) %></span>
+                            </li>
                         <% }) %>
                     </ul>
                 </div>

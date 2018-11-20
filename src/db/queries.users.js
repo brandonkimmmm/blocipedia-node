@@ -11,7 +11,8 @@ module.exports = {
             username: newUser.username,
             email: newUser.email,
             password: hashedPassword,
-            role: newUser.role
+            role: newUser.role,
+            profileImage: newUser.profileImage
         })
         .then((user) => {
             callback(null, user);
@@ -23,12 +24,21 @@ module.exports = {
     },
 
     getUser(id, callback){
+        let result = {};
         User.findById(id)
         .then((user) => {
             if(!user) {
                 callback(404);
             } else {
-                callback(null, user);
+                result.user = user;
+                Wiki.scope({method: ['lastFiveFor', id]}).all()
+                .then((wikis) => {
+                    result.wikis = wikis;
+                    callback(null, result);
+                })
+                .catch((err) => {
+                    callback(err);
+                })
             }
         })
         .catch((err) => {

@@ -10,7 +10,40 @@
 
         <!-- Page Content -->
         <main class="container">
-            <h1><%= `${user.username}'s profile` %></h1>
+            <h1><%= `${result.user.username}'s profile` %></h1>
+            <div class="row">
+                <div class="col-7">
+                    <figure class="figure">
+                        <img src="<%= result.user.profileImage %>" class="figure-img img-fluid rounded" alt="Profile Picture" style="height: 500px;">
+                    </figure>
+                </div>
+                <div class="col-5">
+                    <h3>Email: <%= result.user.email %></h3>
+                    <h3>Name: </h3>
+                    <h3>Member Since: <%= result.user.updatedAt.toString().substring(4, 15) %></h3>
+                </div>
+            </div>
+            <% if(result.wikis.length !== 0) { %>
+                <h1><%= `${result.user.username}'s Wikis` %></h1>
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="list-groups">
+                            <li class="list-group-item">
+                                <span>Title</span> <span class="float-right">Updated</span>
+                            </li>
+                            <% result.wikis.forEach((wiki) => { %>
+                                <li class="list-group-item">
+                                    <% if(wiki.private) { %>
+                                        <i class="fas fa-lock"></i>
+                                    <% } %>
+                                    <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
+                                    <span class="float-right"><%= wiki.updatedAt.toString().substring(4, 15) %></span>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                </div>
+            <% } %>
         </main>
 
         <% include ../static/partials/baseScripts.ejs %>

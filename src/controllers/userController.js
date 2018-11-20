@@ -14,6 +14,7 @@ module.exports = {
             email: req.body.email,
             password: req.body.password,
             passwordConfirmation: req.body.passwordConfirmation,
+            profileImage: req.body.profileImage || undefined,
             role: 0
         };
         userQueries.createUser(newUser, (err, user) => {
@@ -60,12 +61,12 @@ module.exports = {
     },
 
     profile(req, res, next){
-        userQueries.getUser(req.params.id, (err, user) => {
-            if(err || user === undefined){
+        userQueries.getUser(req.params.id, (err, result) => {
+            if(err || result === undefined){
                 req.flash('notice', 'No user found with that ID.');
                 res.redirect('/');
             } else {
-                res.render('users/profile', {user});
+                res.render('users/profile', {result});
             }
         })
     },
