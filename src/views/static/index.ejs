@@ -9,9 +9,13 @@
         <% include ./partials/navbar.ejs %>
 
         <!-- Page Content -->
-        <main class="container">
+        <main class="container-fluid">
 
             <% include ../static/partials/messages.ejs %>
+
+            <h1>Welcome to Blocipedia!</h1>
+
+            <h2>A place to drop and pickup knowledge</h2>
 
             <!-- Jumbotron Header -->
             <header class="jumbotron my-4">
@@ -35,27 +39,59 @@
                         <a href="/users/<%= currentUser.id %>/downgrade" class="btn btn-primary btn-lg">Downgrade</a>
                     <% } %>
                 <% } else if(!currentUser) { %>
-                    <h1 class="display-3">Welcome to Blocipedia!</h1>
-                    <p class="lead">An application for users to create, contribute, and view wikis</p>
+                    <h1 class="display-3">Want to drop some knowledge?</h1>
+                    <p class="lead">Sign up for a free account and share what you know!</p>
                     <a href="/users/signup" class="btn btn-primary btn-lg">Sign up</a>
                 <% } %>
             </header>
 
+            <h4>This is Blocipedia, the premier knowledge hub on the internet. Come join a large open-source community dedicated towards the transfer of information.</h4>
+
             <!-- Page Features -->
-            <section class="row text-center">
-
-                <section class="col-lg-6">
-                    <h4 class="card-title"><a href="/wikis">Wikis</a></h4>
-                    <p class="card-text">Post new wikis about any topic you like.</p>
-                </section>
-
-                <section class="col-lg-6">
-                    <h4 class="card-title">Contribute</h4>
-                    <p class="card-text">Be added as a contributor to wikis and collaborate with other users.</p>
-                </section>
-
-            </section>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-9">
+                        <h1>Featured Wiki</h1>
+                        <div class="card">
+                            <img class="card-img-top" src="https://www.riotgames.com/darkroom/1440/9963d4c630b7e7865695d5f8800c1538:a7196d2d2f12d4eae709a3d15f1cbf46/.jfif" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Seoul</h5>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean maximus mattis ipsum at efficitur. Integer elementum arcu congue, porta felis nec, ullamcorper felis. Duis mollis sagittis nisi, non accumsan ipsum feugiat eget. Nunc faucibus rhoncus vehicula. Aenean vel turpis non augue ullamcorper interdum ac eu massa. Pellentesque odio erat, faucibus a mi nec, pellentesque ornare elit. Cras ut quam a risus lobortis commodo. Donec hendrerit tempus odio ut pulvinar. Curabitur est magna, cursus id elit auctor, blandit ultricies ligula. Ut vulputate, libero in vulputate facilisis, nisl orci dignissim enim, consequat finibus lorem ipsum ac felis. In interdum ultricies mi, nec ultricies lectus. Nulla semper efficitur porttitor. Donec congue elementum nulla id dictum. Etiam a blandit turpis, quis hendrerit arcu. Ut bibendum ante eu eros malesuada dapibus. Sed eu porta elit.</p>
+                                <h4>...</h4>
+                                <a href="#" class="btn btn-primary">View Full Wiki</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <h1>About Us</h1>
+                        <div class="list-group">
+                            <div class="list-group-item list-group-item-action flex-column align-items-start">
+                                <h5 class="mb-1">Connect</h5>
+                                <p class="mb-1">A premier source for user-generated content. Connect, share, and learn about any topic. If you don't find it, add it and share your knowledge with the world.</p>
+                                <a href="#" class="btn btn-primary">Join Today</a>
+                            </div>
+                            <div class="list-group-item list-group-item-action flex-column align-items-start">
+                                <h5 class="mb-1">Collaborate</h5>
+                                <p class="mb-1">Work with other members from around the world to have the most complete Wiki possible. We allow you to edit and have control over content as a Wiki Admin.</p>
+                                <a href="#" class="btn btn-primary">Premium Content</a>
+                            </div>
+                            <div class="list-group-item list-group-item-action flex-column align-items-start">
+                                <h5 class="mb-1">Protect</h5>
+                                <p class="mb-1">Premium Users have access to private wikis that only they can see. You can choose who you would like to share with and who can contribute content as a Premium User.</p>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                            <div class="list-group-item list-group-item-action flex-column align-items-start">
+                                <h5 class="mb-1">Learn</h5>
+                                <p class="mb-1">With users from around the world sharing their knowledge, there is no limit to what you can learn. From Aa to Zoology, you are free to learn what you want, when you want. It is only a click away.</p>
+                                <a href="#" class="btn btn-primary">Start Exploring</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
+
+        <!-- <% include ./partials/footer.ejs %> -->
 
         <% include ./partials/baseScripts.ejs %>
     </body>
