@@ -9,3 +9,27 @@ body {
 .img-fluid {
     max-width: 100%;
 }
+
+#mainJumbo {
+    background-image: url("https://images.unsplash.com/photo-1508014924734-d75124b0f402?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3027af5dc53a2f6e7821f15eb186f4f5&auto=format&fit=crop&w=2255&q=80");
+    background-size: 100%;
+    background-position-y: 30%;
+    color: white;
+}
+
+#featured {
+    margin-top: 100px;
+}
+
+#mainHeader{
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.card-img-top  {
+    padding: 10px 10px 0 10px;
+}
+
+#aboutUs .list-group-item {
+    margin: 0 0 10px 0;
+}
