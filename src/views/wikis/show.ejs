@@ -14,20 +14,24 @@
 
             <div class="row">
                 <div class="col-9">
-                    <h1><%= result.wiki.title %></h1>
+                    <h1 class="display-1"><%= result.wiki.title %></h1>
                     <% if(currentUser && currentUser.id === result.wiki.userId){ %>
                         <a href="/wikis/<%= result.wiki.id %>/edit" class="btn btn-warning">Edit</a>
                         <form style="display:initial" action="/wikis/<%= result.wiki.id %>/destroy" method="post">
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     <% } %>
+                    <hr>
                     <p><%- body %></p>
                 </div>
                 <div class="col-3 text-center">
                     <figure class="figure">
                         <img src="<%= result.wiki.profileImage %>" class="figure-img img-fluid rounded" alt="Profile Picture" style="height: 500px;">
                     </figure>
-                    <h1>Created By: <span><%= result.wiki.username %></span></h1>
+                    <div class="jumbotron my-4" id="createdBy">
+                        <p class="display-4">Created By: <a href="/users/<%= result.wiki.userId %>"><%= result.wiki.username %></a></p>
+                        <p class="lead">Last Updated: <span><%= result.wiki.updatedAt.toString().substring(4, 15) %></span></p>
+                    </div>
                     <% if(result.wiki.private){ %>
                         <div class="container">
                             <h3>Collaborators</h3>

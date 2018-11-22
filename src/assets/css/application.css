@@ -4,6 +4,11 @@ body {
 
 .wiki-index-header {
     text-align: center;
+    margin-bottom: 50px;
+    background-image: url("https://images.unsplash.com/photo-1507495214200-1c8c09e60758?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c4c1b6ea37975499a4c2dd9cb2e47e9c&auto=format&fit=crop&w=934&q=80");
+    color: white;
+    background-size: 100%;
+    background-position-y: 20%;
 }
 
 .img-fluid {
@@ -32,4 +37,31 @@ body {
 
 #aboutUs .list-group-item {
     margin: 0 0 10px 0;
+}
+
+.wiki-list {
+    padding-left: 0;
+}
+
+hr {
+    margin: 20px 0 50px 0;
+}
+
+#createdBy {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.profile-header {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.profile-title {
+    margin-top: 50px;
+}
+
+.profile-wikis {
+    padding-left: 0;
+    margin-top: 15px;
 }
