@@ -13,7 +13,7 @@
         <main class="container-fluid">
 
             <div class="row">
-                <div class="col-9">
+                <div class="col-lg-9 col-md-12">
                     <h1 class="display-1"><%= result.wiki.title %></h1>
                     <% if(currentUser && currentUser.id === result.wiki.userId){ %>
                         <a href="/wikis/<%= result.wiki.id %>/edit" class="btn btn-warning">Edit</a>
@@ -24,7 +24,7 @@
                     <hr>
                     <p><%- body %></p>
                 </div>
-                <div class="col-3 text-center">
+                <div class="col-lg-3 col-md-12 text-center">
                     <figure class="figure">
                         <img src="<%= result.wiki.profileImage %>" class="figure-img img-fluid rounded" alt="Profile Picture" style="height: 500px;">
                     </figure>

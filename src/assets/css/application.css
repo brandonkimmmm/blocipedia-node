@@ -65,3 +65,37 @@ hr {
     padding-left: 0;
     margin-top: 15px;
 }
+
+.email-input {
+    width: 50%;
+    min-width: 350px;
+    max-width: 600px;
+}
+
+.username-input {
+    width: 50%;
+    min-width: 350px;
+    max-width: 600px;
+}
+
+.password-input {
+    width: 50%;
+    min-width: 350px;
+    max-width: 600px;
+}
+
+.title-input {
+    width: 50%;
+    min-width: 350px;
+    max-width: 600px;
+}
+
+.url-input {
+    width: 50%;
+    min-width: 350px;
+    max-width: 600px;
+}
+
+html {
+    font-size: 1em;
+}

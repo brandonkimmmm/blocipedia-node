@@ -8,33 +8,32 @@
         <% include ../static/partials/messages.ejs %>
 
         <main class="container">
-
-            <h1 class="display-1">Sign Up</h1>
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
+                    <h1 class="display-1">Sign Up</h1>
                     <form method="POST" action="/users/signup">
                         <div class="form-group">
                             <label for="title">Username:</label>
-                            <input type="text" name="username" placeholder="Enter Username" class="form-control"/>
+                            <input type="text" name="username" placeholder="Enter Username" class="username-input form-control"/>
                             <small class="text-muted" id="titleHelp">username must be 4 or more characters in length and not being used.</small>
                         </div>
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input type="email" name="email" placeholder="Enter Email" class="form-control"/>
+                            <input type="email" name="email" placeholder="Enter Email" class="email-input form-control"/>
                             <small class="text-muted" id="titleHelp">email must be valid</small>
                         </div>
                         <div class="form-group">
                             <label for="password">Password:</label>
-                            <input type="password" name="password" placeholder="Enter Password" class="form-control"/>
+                            <input type="password" name="password" placeholder="Enter Password" class="password-input form-control"/>
                             <small class="text-muted" id="titleHelp">password must be 6 or more characters in length.</small>
                         </div>
                         <div class="form-group">
                             <label for="password_conf">Password Confirmation:</label>
-                            <input type="password" name="password_conf" placeholder="Enter Password Confirmation" class="form-control"/>
+                            <input type="password" name="password_conf" placeholder="Enter Password Confirmation" class="password-input form-control"/>
                         </div>
                         <div class="form-group">
                             <label for="profileImage">Profile Image URL:</label>
-                            <input type="text" name="profileImage" placeholder="Enter Image URL" class="form-control"/>
+                            <input type="text" name="profileImage" placeholder="Enter Image URL" class="url-input form-control"/>
                             <small class="text-muted" id="titleHelp">leave blank to use default image</small>
                         </div>
                         <br/>

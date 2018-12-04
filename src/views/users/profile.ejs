@@ -12,18 +12,18 @@
         <main class="container">
             <h1 class="display-1 profile-title text-center"><%= `${result.user.username}'s profile` %></h1>
             <div class="row profile-header">
-                <div class="col-9">
+                <div class="col-lg-9 col-md-12">
                     <figure class="figure">
                         <img src="<%= result.user.profileImage %>" class="figure-img img-fluid rounded" alt="Profile Picture" style="height: 500px;">
                     </figure>
                 </div>
-                <div class="col-3">
+                <div class="col-lg-3 col-md-12">
                     <p class="lead">Email: <%= result.user.email %></p>
                     <p class="lead">Member Since: <%= result.user.updatedAt.toString().substring(4, 15) %></p>
                 </div>
             </div>
             <% if(result.wikis.length !== 0) { %>
-                <h1 class="display-4"><%= `${result.user.username}'s Wikis` %></h1>
+                <h1 class="display-4 text-center"><%= `${result.user.username}'s Wikis` %></h1>
                 <div class="row">
                     <div class="col-12">
                         <ul class="list-groups profile-wikis">
