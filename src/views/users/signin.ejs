@@ -3,33 +3,33 @@
     <head>
         <% include ../static/partials/head.ejs %>
     </head>
-    <body>
+    <body id="signin">
 
-        <% include ../static/partials/navbar.ejs %>
         <% include ../static/partials/messages.ejs %>
 
-        <main class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h1 class="display-1">Sign in</h1>
+        <!-- Logo and Label -->
+        <div id="signinLabel" class="text-center">
+            <img class="mb-4" src="https://img.icons8.com/ios/50/000000/drop-shipping.png" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-light">Sign in to Knowledge Drop</h1>
+        </div>
 
-                    <form action="/users/signin" method="post">
-
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="email-input form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="password-input form-control" name="password" aria-describedby="passwordHelp" placeholder="Enter password">
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Sign in</button>
-                    </form>
-                </div>
+        <!-- Signin Form -->
+        <form class="form-signin">
+            <div class="form-group">
+                <label for="inputEmail">Email address</label>
+                <input type="email" id="inputEmail" class="form-control" name="email" required="" autofocus="" autocomplete="on">
             </div>
-        </main>
+            <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input type="password" id="inputPassword" class="form-control" name="password" required="" autocomplete="off">
+            </div>
+            <button class="btn btn-lg btn-success btn-block" type="submit">Sign in</button>
+        </form>
+
+        <!-- Sign up prompt -->
+        <div id="signin-signup" class="text-center float-center">
+            <p class="lead">New? <a href="/users/signup">Create an account</a>.</p>
+        </div>
 
         <% include ../static/partials/baseScripts.ejs %>
 

@@ -1,5 +1,6 @@
 body {
     padding-top: 110px;
+    background: #f9f9f9f9;
 }
 
 .wiki-index-header {
@@ -59,40 +60,6 @@ hr {
     margin-top: 15px;
 }
 
-.email-input {
-    width: 50%;
-    min-width: 350px;
-    max-width: 600px;
-}
-
-.username-input {
-    width: 50%;
-    min-width: 350px;
-    max-width: 600px;
-}
-
-.password-input {
-    width: 50%;
-    min-width: 350px;
-    max-width: 600px;
-}
-
-.title-input {
-    width: 50%;
-    min-width: 350px;
-    max-width: 600px;
-}
-
-.url-input {
-    width: 50%;
-    min-width: 350px;
-    max-width: 600px;
-}
-
-html {
-    font-size: 1em;
-}
-
 .navbar {
     padding: 25px 0 25px 0;
 }
@@ -118,7 +85,7 @@ html {
     margin: 20px auto;
     border-radius: 1%;
     color: #586069;
-    height: 500px;
+    height: 565px;
     align-items: center;
     max-width: 500px;
 }
@@ -152,4 +119,51 @@ html {
 
 .feature:nth-of-type(even){
     background-color: #9e9e9e17 !important;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 20px;
+    margin: auto;
+    border: 1px solid #80808059;
+    border-radius: 2%;
+    background: white;
+}
+
+.form-signin button {
+    padding: 5px 0;
+}
+
+#signinLabel {
+    margin-bottom: 50px;
+    color: #808080cf;
+}
+
+#signin-signup {
+    max-width: 330px;
+    margin: 30px auto;
+    font-size: 15px;
+    padding: 5px auto;
+}
+
+#signup {
+    margin-top: 70px;
+    margin-bottom: 100px;
+}
+
+#signupForm {
+    margin-top: 50px;
+}
+
+#signupForm input {
+    max-width: 500px;
+}
+
+#signupForm .lead {
+    font-size: 40px;
+}
+
+#signupForm .btn {
+    width: 200px;
 }

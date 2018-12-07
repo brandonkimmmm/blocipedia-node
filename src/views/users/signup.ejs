@@ -7,38 +7,60 @@
         <% include ../static/partials/navbar.ejs %>
         <% include ../static/partials/messages.ejs %>
 
-        <main class="container">
+        <main class="container" id="signup">
             <div class="row">
-                <div class="col-md-12">
-                    <h1 class="display-1">Sign Up</h1>
+                <div class="col-lg-12">
+                    <h1 class="display-3">Join Knowledge Drop</h1>
+                    <p class="lead">The best way to share and learn knowledge.</p>
+                </div>
+            </div>
+            <div class="row" id="signupForm">
+                <div class="col-lg-7">
+                    <p class="lead">Create your personal account</p>
                     <form method="POST" action="/users/signup">
                         <div class="form-group">
-                            <label for="title">Username:</label>
-                            <input type="text" name="username" placeholder="Enter Username" class="username-input form-control"/>
-                            <small class="text-muted" id="titleHelp">username must be 4 or more characters in length and not being used.</small>
+                            <label for="title">Username</label>
+                            <input type="text" name="username" placeholder="Pick a username" class="username-input form-control"/>
+                            <small class="text-muted" id="titleHelp">username must be 4 or more characters in length and not being used</small>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" name="email" placeholder="Enter Email" class="email-input form-control"/>
+                            <label for="email">Email</label>
+                            <input type="email" name="email" placeholder="you@example.com" class="email-input form-control"/>
                             <small class="text-muted" id="titleHelp">email must be valid</small>
                         </div>
                         <div class="form-group">
-                            <label for="password">Password:</label>
-                            <input type="password" name="password" placeholder="Enter Password" class="password-input form-control"/>
-                            <small class="text-muted" id="titleHelp">password must be 6 or more characters in length.</small>
+                            <label for="password">Password</label>
+                            <input type="password" name="password" placeholder="Create a Password" class="password-input form-control"/>
+                            <small class="text-muted" id="titleHelp">password must be 6 or more characters in length</small>
                         </div>
                         <div class="form-group">
-                            <label for="password_conf">Password Confirmation:</label>
-                            <input type="password" name="password_conf" placeholder="Enter Password Confirmation" class="password-input form-control"/>
+                            <label for="password_conf">Password Confirmation</label>
+                            <input type="password" name="password_conf" placeholder="Re-enter your password" class="password-input form-control"/>
                         </div>
                         <div class="form-group">
-                            <label for="profileImage">Profile Image URL:</label>
+                            <label for="profileImage">Profile Image URL</label>
                             <input type="text" name="profileImage" placeholder="Enter Image URL" class="url-input form-control"/>
                             <small class="text-muted" id="titleHelp">leave blank to use default image</small>
                         </div>
                         <br/>
-                        <input type="submit" value="Sign Up" class="btn btn-primary"/>
+                        <input type="submit" value="Sign Up" class="btn btn-success"/>
                     </form>
+                </div>
+                <div class="col-lg-5 d-none d-lg-block float-right">
+                    <div class="card" style="max-width: 400px">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>You'll love Knowledge Drop</strong></li>
+                            <li class="list-group-item">
+                                <div><strong>Unlimited</strong> posts</div>
+                                <div><strong>Unlimited</strong> collaborations with upgrade</div>
+                            </li>
+                            <li class="list-group-item">
+                                <div><i class="fas fa-check"></i> Great selection</div>
+                                <div><i class="fas fa-check"></i> Private posts with upgrade</div>
+                                <div><i class="fas fa-check"></i> Markdown text editor</div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </main>
