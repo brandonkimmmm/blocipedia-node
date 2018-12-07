@@ -99,3 +99,7 @@ hr {
 html {
     font-size: 1em;
 }
+
+.navbar {
+    padding: 30px 0 30px 0;
+}
