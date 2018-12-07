@@ -1,5 +1,5 @@
 body {
-    padding-top: 54px;
+    padding-top: 110px;
 }
 
 .wiki-index-header {
@@ -13,13 +13,6 @@ body {
 
 .img-fluid {
     max-width: 100%;
-}
-
-#mainJumbo {
-    background-image: url("https://images.unsplash.com/photo-1508014924734-d75124b0f402?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3027af5dc53a2f6e7821f15eb186f4f5&auto=format&fit=crop&w=2255&q=80");
-    background-size: 100%;
-    background-position-y: 30%;
-    color: white;
 }
 
 #featured {
@@ -101,5 +94,62 @@ html {
 }
 
 .navbar {
-    padding: 30px 0 30px 0;
+    padding: 25px 0 25px 0;
+}
+
+#mainJumbo {
+    background: #24C6DC;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #514A9D, #24C6DC);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #514A9D, #24C6DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: white;
+    border-radius: 0;
+    height: 100%;
+    margin-bottom: 0;
+}
+
+#mainJumbo .container .row{
+    display: flex;
+    align-items: center;
+}
+
+#signup-form {
+    background: white;
+    padding: 20px 20px 20px 20px;
+    margin: 20px auto;
+    border-radius: 1%;
+    color: #586069;
+    height: 500px;
+    align-items: center;
+    max-width: 500px;
+}
+
+#signup-form .btn {
+    width: 100%;
+    padding: 15px 0 15px 0;
+}
+
+.alert {
+    margin-bottom: 0;
+}
+
+.feature {
+    border-radius: 0;
+    height: 100%;
+    margin-bottom: 0;
+    padding: 40px 0;
+    background-color: white;
+}
+
+.feature .container .row {
+    display: flex;
+    align-items: center;
+}
+
+.feature img {
+    width: 50%;
+    height: auto;
+}
+
+.feature:nth-of-type(even){
+    background-color: #9e9e9e17 !important;
 }
