@@ -1,5 +1,6 @@
 body {
     padding-top: 110px;
+    padding-bottom: 110px;
     background: #f9f9f9f9;
 }
 
@@ -138,6 +139,7 @@ hr {
 #signinLabel {
     margin-bottom: 50px;
     color: #808080cf;
+    margin-top: 50px;
 }
 
 #signin-signup {
@@ -166,4 +168,46 @@ hr {
 
 #signupForm .btn {
     width: 200px;
+}
+
+.centered {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.centered-profile {
+    font-size: 10px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+#wikiExample {
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+}
+
+#wikiExample .card-img-top {
+    padding: 0;
+    height: 100px;
+    opacity: .7;
+}
+
+.card-img {
+    height: 135px;
+    opacity: .7;
+}
+
+#wiki-form input {
+    max-width: 500px;
+}
+
+#wiki-new-header {
+    margin: 50px 0 30px 0;
 }

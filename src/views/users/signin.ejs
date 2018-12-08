@@ -3,8 +3,8 @@
     <head>
         <% include ../static/partials/head.ejs %>
     </head>
-    <body id="signin">
-
+    <body>
+        <% include ../static/partials/navbar.ejs %>
         <% include ../static/partials/messages.ejs %>
 
         <!-- Logo and Label -->
@@ -14,7 +14,7 @@
         </div>
 
         <!-- Signin Form -->
-        <form class="form-signin">
+        <form class="form-signin" method="POST" action="/users/signin">
             <div class="form-group">
                 <label for="inputEmail">Email address</label>
                 <input type="email" id="inputEmail" class="form-control" name="email" required="" autofocus="" autocomplete="on">
