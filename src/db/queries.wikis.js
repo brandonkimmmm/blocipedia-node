@@ -7,7 +7,8 @@ module.exports = {
     getAllWikis(req, callback){
         let result = {
             wikis: null,
-            collaborations: null
+            collaborations: null,
+            featuredWiki: null
         };
         return Wiki.all()
         .then((wikis) => {

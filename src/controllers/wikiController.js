@@ -8,6 +8,18 @@ module.exports = {
             if(err){
                 res.redirect(500, 'static/index');
             } else {
+                if(result.wikis !== null) {
+                    let rand = Math.floor(Math.random() * result.wikis.length);
+                    while(result.wikis[rand].private === true) {
+                        rand = Math.floor(Math.random() * result.wikis.length);
+                    }
+                    result.featuredWiki = result.wikis[rand];
+                    if(result.featuredWiki.body.length < 400) {
+                        result.featuredWiki.body = markdown.toHTML(result.featuredWiki.body)
+                    } else {
+                        result.featuredWiki.body = markdown.toHTML(result.featuredWiki.body.substr(0, 400))
+                    }
+                }
                 res.render('wikis/index', {result});
             }
         })

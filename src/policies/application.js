@@ -21,7 +21,7 @@ module.exports = class ApplicationPolicy {
         let isCollab = false;
         if(this.collab.length !== 0){
             this.collab.forEach((collab) => {
-                if(collab.userId == this.user.id){
+                if(this.user && (collab.userId == this.user.id)){
                     isCollab = true;
                 }
             });

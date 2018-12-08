@@ -221,3 +221,109 @@ body {
 hr {
     margin: 20px 0 50px 0;
 }
+
+.carousel-item {
+    height: 600px;
+}
+
+.carousel-item .card {
+    height: 505px;
+    color: black;
+}
+
+#featureImage {
+    width: 100%;
+}
+
+.carousel-item .card .row {
+    height: 335px;
+}
+
+.carousel-item header {
+    margin-bottom: 10px;
+}
+
+.carousel-item .display-3 {
+    font-size: 30px;
+}
+
+.carousel-item .display-4 {
+    font-size: 13px;
+    margin: 5px 0;
+}
+
+.carousel-item hr {
+    margin: 5px 0;
+}
+
+.carousel-item .card-body {
+    padding: 5px;
+}
+
+.carousel-item header {
+    padding: 0;
+    height: 150px;
+}
+
+.carousel-item #createdBy {
+    padding: 5px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+#featureBody > * {
+    font-size: 12px;
+}
+
+#featureBody {
+    font-size: 12px;
+}
+
+#featuredWiki {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+#callToAction {
+    height: 430px;
+}
+
+#wiki-list-main {
+    margin-top: 50px;
+}
+
+.list-labels {
+    background-color: #9e9e9e17;
+}
+
+.list-labels .display-4 {
+    font-size: 25px;
+}
+
+.wiki-list .list-group-item {
+    border: none;
+    border-radius: 0;
+}
+
+a:nth-of-type(even) .wiki-list-item {
+    background-color: #f9f9f9f9  !important;
+}
+
+.wiki-list a {
+    text-decoration: none !important;
+    color: #343a40;
+}
+
+.wiki-list a:hover {
+    font-size: 18px;
+    color: #2e96c6;
+}
+
+#home {
+    padding-bottom: 0;
+}
+
+#smallCollab {
+    text-align: center;
+    margin: 0 auto;
+}

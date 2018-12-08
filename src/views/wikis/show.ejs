@@ -11,48 +11,116 @@
         <header class="jumbotron" style="background-image:url(<%= result.wiki.headerImage %>);background-size: cover;height: 300px;">
         </header>
         <main class="container">
-
+            <% if(result.wiki.collaborators) { %>
+                <% let isCollaborator = false; %>
+                <% result.collaborators.forEach((collab) => { %>
+                    <% if(currentUser && collab.userId === currentUser.id){ %>
+                        <% isCollaborator = true %>
+                    <% } %>
+                <% }) %>
+            <% } %>
             <div class="row">
                 <div class="col-lg-8 col-md-12">
-                    <h1 class="display-1"><%= result.wiki.title %></h1>
-                    <% if(currentUser && currentUser.id === result.wiki.userId){ %>
-                        <a href="/wikis/<%= result.wiki.id %>/edit" class="btn btn-warning">Edit</a>
+                    <h1 class="display-1">
+                        <% if(result.wiki.private) { %>
+                            <span><strong><i class="fas fa-lock"></i></strong></span>
+                        <% } %>
+                        <% if(currentUser && (currentUser.id === result.wiki.userId)) { %>
+                            <i class="fas fa-user"></i>
+                        <% } %>
+                        <%= result.wiki.title %>
+                    </h1>
+                    <% if(currentUser && ((currentUser.id === result.wiki.userId) || isCollaborator || currentUser.role === 2)){ %>
+                        <a href="/wikis/<%= result.wiki.id %>/edit" class="btn btn-warning btn-sm">Edit</a>
+                    <% } %>
+                    <% if(currentUser && ((currentUser.id === result.wiki.userId) || currentUser.role === 2)){ %>
                         <form style="display:initial" action="/wikis/<%= result.wiki.id %>/destroy" method="post">
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
                     <% } %>
                     <hr>
-                    <p><%- body %></p>
+                    <% if(result.wiki.private) { %>
+                        <div class="dropdown d-block d-lg-none" id="smallCollab">
+                            <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Collaborators
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <% if(currentUser && ((currentUser.role === 1 && currentUser.id === result.wiki.userId) || currentUser.role === 2)){ %>
+                                    <form class="dropdown-item" action="/wikis/<%= result.wiki.id %>/collaborators/new" method="post">
+                                        <div id="email-input" class="form-group">
+                                            <label for="title">Collaborator Email</label>
+                                            <input type="text" class="form-control" name="collaboratorEmail" placeholder="Enter user email">
+                                        </div>
+                                        <button type="submit" class="btn btn-success btn-sm">Add Collaborator</button>
+                                    </form>
+                                    <div class="dropdown-divider"></div>
+                                <% } %>
+                                    <% result.collaborators.forEach((collab) => { %>
+                                        <div class="dropdown-item">
+                                            <a href="/users/<%= collab.userId %>">
+                                                <%= collab.username %>
+                                                <% if(currentUser.id === result.wiki.userId){ %>
+                                                    <span>
+                                                        <form style="display:initial" action="/wikis/<%= collab.wikiId %>/collaborators/<%= collab.id %>/destroy" method="post">
+                                                            <button type="submit" class="btn btn-danger btn-sm float-right">Remove</button>
+                                                        </form>
+                                                    </span>
+                                                <% } %>
+                                            </a>
+                                        </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                    <% } %>
+                    <div class="jumbotron my-4 d-block d-lg-none" id="createdBy">
+                        <p class="display-4" id="wiki-created-by">Created By: <a href="/users/<%= result.wiki.userId %>"><%= result.wiki.username %></a></p>
+                        <p class="lead wiki-created">Created At: <span><%= result.wiki.createdAt.toString().substring(4, 15) %></span></p>
+                        <p class="lead wiki-created">Last Updated: <span><%= result.wiki.updatedAt.toString().substring(4, 15) %></span></p>
+                    </div>
+                    <div><%- body %></div>
                 </div>
                 <div class="col-lg-4 d-none d-lg-block text-center">
                     <figure class="figure">
                         <img src="<%= result.wiki.profileImage %>" class="figure-img img-fluid rounded" alt="Profile Picture" style="height: 500px;">
                     </figure>
+                    <% if(result.wiki.private) { %>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Collaborators
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <% if(currentUser && ((currentUser.role === 1 && currentUser.id === result.wiki.userId) || currentUser.role === 2)){ %>
+                                    <form class="dropdown-item" action="/wikis/<%= result.wiki.id %>/collaborators/new" method="post">
+                                        <div id="email-input" class="form-group">
+                                            <label for="title">Collaborator Email</label>
+                                            <input type="text" class="form-control" name="collaboratorEmail" placeholder="Enter user email">
+                                        </div>
+                                        <button type="submit" class="btn btn-success btn-sm">Add Collaborator</button>
+                                    </form>
+                                    <div class="dropdown-divider"></div>
+                                <% } %>
+                                    <% result.collaborators.forEach((collab) => { %>
+                                        <div class="dropdown-item">
+                                            <a href="/users/<%= collab.userId %>">
+                                                <%= collab.username %>
+                                                <% if(currentUser.id === result.wiki.userId){ %>
+                                                    <span>
+                                                        <form style="display:initial" action="/wikis/<%= collab.wikiId %>/collaborators/<%= collab.id %>/destroy" method="post">
+                                                            <button type="submit" class="btn btn-danger btn-sm float-right">Remove</button>
+                                                        </form>
+                                                    </span>
+                                                <% } %>
+                                            </a>
+                                        </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                    <% } %>
                     <div class="jumbotron my-4" id="createdBy">
                         <p class="display-4" id="wiki-created-by">Created By: <a href="/users/<%= result.wiki.userId %>"><%= result.wiki.username %></a></p>
                         <p class="lead wiki-created">Created At: <span><%= result.wiki.createdAt.toString().substring(4, 15) %></span></p>
                         <p class="lead wiki-created">Last Updated: <span><%= result.wiki.updatedAt.toString().substring(4, 15) %></span></p>
                     </div>
-                    <% if(result.wiki.private){ %>
-                        <div class="container">
-                            <h3>Collaborators</h3>
-                            <% if(currentUser && ((currentUser.role === 1 && currentUser.id === result.wiki.userId) || currentUser.role === 2)){ %>
-                                <a href="/wikis/<%= result.wiki.id %>/collaborators/new" class="btn btn-warning">Add Collaborator</a>
-                            <% } %>
-                            <ul class="list-groups">
-                                <% result.collaborators.forEach((collab) => { %>
-                                    <li class="list-group-item">
-                                        <a href="/users/<%= collab.userId %>"><%= collab.username %></a>
-                                        <% if(currentUser.id === result.wiki.userId){ %>
-                                            <form style="display:initial" action="/wikis/<%= collab.wikiId %>/collaborators/<%= collab.id %>/destroy" method="post">
-                                                <button type="submit" class="btn btn-danger btn-sm float-right">Remove</button>
-                                            </form>
-                                        <% } %>
-                                    </li>
-                                <% }) %>
-                            </ul>
-                        </div>
-                    <% } %>
                 </div>
             </div>
 

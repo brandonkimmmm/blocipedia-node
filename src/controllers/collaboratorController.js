@@ -1,12 +1,8 @@
 const collaboratorQueries = require('../db/queries.collaborators.js');
 
 module.exports = {
-    new(req, res, next){
-        let wikiId = req.params.wikiId;
-        res.render('collaborators/new', {wikiId});
-    },
 
-    create(req, res, next){
+    new(req, res, next){
         let collaboratorEmail = req.body.collaboratorEmail;
         let wiki = {
             id: req.params.wikiId
@@ -14,7 +10,7 @@ module.exports = {
         collaboratorQueries.addCollaborator(collaboratorEmail, req.params.wikiId, (err, collab) => {
             if(err || collab == null){
                 req.flash('notice', err)
-                res.redirect(`/wikis/${req.params.wikiId}/collaborators/new`);
+                res.redirect(`/wikis/${req.params.wikiId}`);
             } else {
                 req.flash('notice', 'Successfully added collaborator');
                 res.redirect(`/wikis/${req.params.wikiId}`);

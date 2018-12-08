@@ -21,19 +21,19 @@
                     <div id="wiki-form" class="col-lg-7 col-md-12">
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text" class="title-input form-control" name="title" aria-describedby="titleHelp" placeholder="Pick a title">
+                            <input type="text" class="form-control" name="title" aria-describedby="titleHelp" placeholder="Pick a title">
                             <small class="text-muted" id="titleHelp">title must be 3 or more characters in length</small>
                         </div>
                         <div class="form-group">
                             <label for="headerImage">Header Image URL</label>
-                            <input type="text" class="url-input form-control" name="headerImage" aria-describedby="headerImageHelp" placeholder="Enter an image URL">
+                            <input type="text" class="form-control" name="headerImage" aria-describedby="headerImageHelp" placeholder="Enter an image URL">
                             <small class="text-muted" id="headerImageHelp">Leave blank to use default image</small>
-                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="profileImage">Profile Image URL</label>
-                            <input type="text" class="url-input form-control" name="profileImage" aria-describedby="profileImageHelp" placeholder="Enter an image URL">
+                            <input type="text" class="form-control" name="profileImage" aria-describedby="profileImageHelp" placeholder="Enter an image URL">
                             <small class="text-muted" id="profileImageHelp">Leave blank to use default image</small>
-                            </div>
+                        </div>
                         <% if(currentUser.role === 1 || currentUser.role === 2){ %>
                             <div class="form-group">
                                 <label for="private">Set Private?</label>
