@@ -10,10 +10,10 @@
 
         <header class="jumbotron" style="background-image:url(<%= result.wiki.headerImage %>);background-size: cover;height: 300px;">
         </header>
-        <main class="container-fluid">
+        <main class="container">
 
             <div class="row">
-                <div class="col-lg-9 col-md-12">
+                <div class="col-lg-8 col-md-12">
                     <h1 class="display-1"><%= result.wiki.title %></h1>
                     <% if(currentUser && currentUser.id === result.wiki.userId){ %>
                         <a href="/wikis/<%= result.wiki.id %>/edit" class="btn btn-warning">Edit</a>
@@ -24,13 +24,14 @@
                     <hr>
                     <p><%- body %></p>
                 </div>
-                <div class="col-lg-3 col-md-12 text-center">
+                <div class="col-lg-4 d-none d-lg-block text-center">
                     <figure class="figure">
                         <img src="<%= result.wiki.profileImage %>" class="figure-img img-fluid rounded" alt="Profile Picture" style="height: 500px;">
                     </figure>
                     <div class="jumbotron my-4" id="createdBy">
-                        <p class="display-4">Created By: <a href="/users/<%= result.wiki.userId %>"><%= result.wiki.username %></a></p>
-                        <p class="lead">Last Updated: <span><%= result.wiki.updatedAt.toString().substring(4, 15) %></span></p>
+                        <p class="display-4" id="wiki-created-by">Created By: <a href="/users/<%= result.wiki.userId %>"><%= result.wiki.username %></a></p>
+                        <p class="lead wiki-created">Created At: <span><%= result.wiki.createdAt.toString().substring(4, 15) %></span></p>
+                        <p class="lead wiki-created">Last Updated: <span><%= result.wiki.updatedAt.toString().substring(4, 15) %></span></p>
                     </div>
                     <% if(result.wiki.private){ %>
                         <div class="container">

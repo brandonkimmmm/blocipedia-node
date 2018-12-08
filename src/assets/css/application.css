@@ -38,15 +38,6 @@ body {
     padding-left: 0;
 }
 
-hr {
-    margin: 20px 0 50px 0;
-}
-
-#createdBy {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
 .profile-header {
     margin-top: 50px;
     margin-bottom: 50px;
@@ -210,4 +201,23 @@ hr {
 
 #wiki-new-header {
     margin: 50px 0 30px 0;
+}
+
+#wiki-created-by {
+    font-size: 25px;
+}
+
+.wiki-created {
+    font-size: 15px;
+}
+
+#createdBy {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    max-width: 300px;
+    margin: auto;
+}
+
+hr {
+    margin: 20px 0 50px 0;
 }
