@@ -118,9 +118,17 @@
                     <% }) %>
                 <% }) %>
             <% } %>
-            <div class="row d-block d-md-none">
+            <div class="row d-block d-md-none" style="margin-bottom: 30px;">
                 <div class="col-12 text-center">
-                    <h1 class="display-1" style="font-size: 80px; margin-bottom: 30px;">Our Wikis</h1>
+                    <h1 class="display-1" style="font-size: 80px;">Our Wikis</h1>
+                    <% if(!currentUser) { %>
+                        <p class="lead">Want to share your knowledge with the world? Join our community and start dropping some knowledge!</p>
+                        <a href="/users/signup" class="btn btn-sm btn-success">Sign Up</a>
+                        <a href="/users/signin" class="btn btn-sm btn-success">Sign In</a>
+                    <% } else { %>
+                        <p class="lead">Create a new wiki and share your knowledge!</p>
+                        <a href="/wikis/new" class="btn btn-success">Add Wiki</a>
+                    <% } %>
                 </div>
             </div>
             <div class="row">
