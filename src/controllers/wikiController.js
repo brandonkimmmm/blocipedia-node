@@ -8,7 +8,7 @@ module.exports = {
             if(err){
                 res.redirect(500, 'static/index');
             } else {
-                if(result.wikis !== null) {
+                if(result.wikis.length !== 0) {
                     let rand = Math.floor(Math.random() * result.wikis.length);
                     while(result.wikis[rand].private === true) {
                         rand = Math.floor(Math.random() * result.wikis.length);
