@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     profileImage: {
-      defaultValue: 'https://images.unsplash.com/photo-1500239524810-5a6e76344a17?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ced2e922551021deea15cc23a7a5b494&auto=format&fit=crop&w=2279&q=80',
+      defaultValue: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678099-profile-filled-512.png',
       type: DataTypes.STRING,
       allowNull: false
     },

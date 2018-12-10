@@ -8,6 +8,7 @@ module.exports = {
         let result = {
             wikis: null,
             collaborations: null,
+            myWikis: null,
             featuredWiki: null
         };
         return Wiki.all()
@@ -16,14 +17,23 @@ module.exports = {
             if(!req.user){
                 callback(null, result);
             } else {
-                Collaborator.findAll({
+                Wiki.findAll({
                     where: {
-                        userId: req.user.id
+                        'userId': req.user.id
                     }
                 })
-                .then((collabs) => {
-                    result.collaborations = collabs;
-                    callback(null, result);
+                .then((myWikis) => {
+                    result.myWikis = myWikis
+                    Collaborator.findAll({
+                        where: {
+                            'userId': req.user.id
+                        },
+                        include: [ Wiki ]
+                    })
+                    .then((collabs) => {
+                        result.collaborations = collabs;
+                        callback(null, result);
+                    })
                 })
             }
         })

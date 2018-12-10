@@ -1,5 +1,6 @@
 const User = require('./models').User;
 const Wiki = require('./models').Wiki;
+const Collab = require('./models').Collaborator;
 const bcrypt = require('bcryptjs');
 
 module.exports = {
@@ -34,7 +35,19 @@ module.exports = {
                 Wiki.scope({method: ['lastFiveFor', id]}).all()
                 .then((wikis) => {
                     result.wikis = wikis;
-                    callback(null, result);
+                    Collab.findAll({
+                        where: {
+                            'userId': id
+                        },
+                        include: [ Wiki ]
+                    })
+                    .then((collabs) => {
+                        result.collaborations = collabs;
+                        callback(null, result);
+                    })
+                    .catch((err) => {
+                        callback(err);
+                    });
                 })
                 .catch((err) => {
                     callback(err);

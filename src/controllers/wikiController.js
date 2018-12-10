@@ -45,7 +45,7 @@ module.exports = {
                 username: req.user.username,
                 headerImage: req.body.headerImage || undefined,
                 profileImage: req.body.profileImage || undefined,
-                private: (req.body.private === 'true') || false
+                private: (req.body.private === 'true')
             };
             wikiQueries.addWiki(newWiki, (err, wiki) => {
                 if(err){

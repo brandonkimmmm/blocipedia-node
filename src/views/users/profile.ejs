@@ -10,39 +10,80 @@
 
         <!-- Page Content -->
         <main class="container">
-            <h1 class="display-1 profile-title text-center"><%= `${result.user.username}'s profile` %></h1>
+            <% let border %>
             <div class="row profile-header">
-                <div class="col-lg-9 col-md-12">
+                <div class="col-lg-4 col-md-12">
+                    <% if(result.user.role === 1){ %>
+                        <% border = "border: 5px solid gold;" %>
+                    <% } else if(result.user.role === 2){ %>
+                        <% border = "border: 5px solid red;" %>
+                    <% } %>
                     <figure class="figure">
-                        <img src="<%= result.user.profileImage %>" class="figure-img img-fluid rounded" alt="Profile Picture" style="height: 500px;">
+                        <img src="<%= result.user.profileImage %>" class="figure-img img-fluid" alt="Profile Picture" style="<%= border %>">
                     </figure>
-                </div>
-                <div class="col-lg-3 col-md-12">
+                    <p class="lead"><strong><%= result.user.username %></strong></p>
                     <p class="lead">Email: <%= result.user.email %></p>
                     <p class="lead">Member Since: <%= result.user.updatedAt.toString().substring(4, 15) %></p>
                 </div>
-            </div>
-            <% if(result.wikis.length !== 0) { %>
-                <h1 class="display-4 text-center"><%= `${result.user.username}'s Wikis` %></h1>
-                <div class="row">
-                    <div class="col-12">
-                        <ul class="list-groups profile-wikis">
-                            <li class="list-group-item">
-                                <span>Title</span> <span class="float-right">Updated</span>
-                            </li>
-                            <% result.wikis.forEach((wiki) => { %>
-                                <li class="list-group-item">
-                                    <% if(wiki.private) { %>
-                                        <i class="fas fa-lock"></i>
-                                    <% } %>
-                                    <a href="/wikis/<%= wiki.id %>"><%= wiki.title %></a>
-                                    <span class="float-right"><%= wiki.updatedAt.toString().substring(4, 15) %></span>
-                                </li>
-                            <% }) %>
-                        </ul>
+                <div class="col-lg-8 col-md-12">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="wikis-tab" data-toggle="tab" href="#wikis" role="tab" aria-controls="wikis" aria-selected="true">Wikis</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="collaborations-tab" data-toggle="tab" href="#collaborations" role="tab" aria-controls="collaborations" aria-selected="false">Collaborations</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="wikis" role="tabpanel" aria-labelledby="wikis-tab">
+                            <% if(result.wikis.length !== 0) { %>
+                                <ul class="list-groups profile-wikis">
+                                    <li class="list-group-item list-labels">
+                                        <span class="display-4">Title</span>
+                                        <span class="float-right display-4">Last Updated</span>
+                                    </li>
+                                    <% result.wikis.forEach((wiki) => { %>
+                                        <a href="/wikis/<%= wiki.id %>">
+                                            <li class="list-group-item wiki-list-item">
+                                                <% if(wiki.private) { %>
+                                                    <i class="fas fa-lock"></i>
+                                                <% } %>
+                                                <%= wiki.title %>
+                                                <span class="float-right"><%= wiki.updatedAt.toString().substring(4, 15) %></span>
+                                            </li>
+                                        </a>
+                                    <% }) %>
+                                </ul>
+                            <% } else { %>
+                                <h1 class="lead">Nothing here...</h1>
+                            <% } %>
+                        </div>
+                        <div class="tab-pane fade" id="collaborations" role="tabpanel" aria-labelledby="collaborations-tab">
+                            <% if(result.collaborations.length !== 0){ %>
+                                <ul class="list-groups profile-wikis">
+                                    <li class="list-group-item list-labels wiki-list-item">
+                                        <span class="display-4">Title</span>
+                                        <span class="float-right display-4">Last Updated</span>
+                                    </li>
+                                    <% result.collaborations.forEach((collab) => { %>
+                                        <a href="/wikis/<%= collab.Wiki.id %>">
+                                            <li class="list-group-item">
+                                                <% if(collab.Wiki.private) { %>
+                                                    <i class="fas fa-lock"></i>
+                                                <% } %>
+                                                <%= collab.Wiki.title %>
+                                                <span class="float-right"><%= collab.Wiki.updatedAt.toString().substring(4, 15) %></span>
+                                            </li>
+                                        </a>
+                                    <% }) %>
+                                </ul>
+                            <% } else { %>
+                                <h1 class="lead">Nothing here...</h1>
+                            <% } %>
+                        </div>
                     </div>
                 </div>
-            <% } %>
+            </div>
         </main>
 
         <% include ../static/partials/baseScripts.ejs %>
