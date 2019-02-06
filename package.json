@@ -1,5 +1,5 @@
 {
-  "name": "blocipedia-node",
+  "name": "knowledge-drop",
   "version": "1.0.0",
   "description": "An wikipedia-like application for users to create, collaborate, and share wikis",
   "main": "src/server.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brandonkimmmm/blocipedia-node.git"
+    "url": "git+https://github.com/brandonkimmmm/knowledge-drop.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/brandonkimmmm/blocipedia-node/issues"
+    "url": "https://github.com/brandonkimmmm/knowledge-drop/issues"
   },
-  "homepage": "https://github.com/brandonkimmmm/blocipedia-node#readme",
+  "homepage": "https://github.com/brandonkimmmm/knowledge-drop#readme",
   "devDependencies": {
     "faker": "^4.1.0",
     "jasmine": "^3.0.0",
