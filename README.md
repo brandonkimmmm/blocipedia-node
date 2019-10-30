@@ -7,7 +7,7 @@ RESTful Wikipedia-clone that allows users to upgrade their accounts, post wikis,
 
 ## Built With
 
-* [Node.js](https://github.com/nodejs/node) - Backend framework used
+* [Node.js](https://github.com/nodejs/node) - Backend runtime environment
 * [Express](https://github.com/expressjs/express) - Node framework
 * [EJS](https://github.com/mde/ejs) - Language used to generate HTML markup using JavaScript
 * [Bootstrap](https://github.com/twbs/bootstrap) - Frontend framework
