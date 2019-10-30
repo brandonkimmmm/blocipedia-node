@@ -16,6 +16,8 @@ RESTful Wikipedia-clone that allows users to upgrade their accounts, post wikis,
 * [Sequelize](https://github.com/sequelize/sequelize) - JavaScript library for using database
 * [Passport](https://github.com/jaredhanson/passport) - Authentication middleware used
 * [Stripe](https://github.com/stripe/stripe-node) - Payment library used as a mockup
+* [Bcryptjs](https://github.com/dcodeIO/bcrypt.js) - Password encryption library
+
 
 ## Screenshots
 
