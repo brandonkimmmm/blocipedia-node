@@ -1,6 +1,6 @@
 # Knowledge Drop
 
-![Landing Page](https://i.imgur.com/LYQYAJ6.gif)
+![Gif](https://i.imgur.com/LYQYAJ6.gif)
 
 RESTful Wikipedia-clone that allows users to upgrade their accounts, post wikis, collaborate on wikis, and view wikis.
 
